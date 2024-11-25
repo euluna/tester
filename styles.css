@@ -625,3 +625,6 @@ h1 {
     }
 }
  
+.care-detail {
+    text-transform: capitalize;
+}

@@ -97,9 +97,9 @@
                         <p class="scientific-name">${plant.scientific_name?.[0] || 'Scientific name not available'}</p>
                         
                         <div class="care-info">
-                            <p><strong>Watering:</strong> ${plant.watering || 'Information not available'}</p>
-                            <p><strong>Sunlight:</strong> ${Array.isArray(plant.sunlight) ? plant.sunlight.join(', ') : (plant.sunlight || 'Information not available')}</p>
-                            <p><strong>Care Level:</strong> ${getCareLevel(plant)}</p>
+                            <p class="care-detail"><strong>Watering:</strong> ${plant.watering || 'Information not available'}</p>
+                            <p class="care-detail"><strong>Sunlight:</strong> ${Array.isArray(plant.sunlight) ? plant.sunlight.join(', ') : (plant.sunlight || 'Information not available')}</p>
+                            <p class="care-detail"><strong>Care Level:</strong> ${getCareLevel(plant)}</p>
                             <div class="description">
                                 <p><strong>Description:</strong> ${plant.description || 'No description available'}</p>
                             </div>
