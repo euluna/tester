@@ -93,8 +93,9 @@ h1 {
 }
 
 .search-container {
-    width: 85%;
-    margin: 0 auto 1.5rem auto;
+    width: 75%;
+    max-width: 800px;
+    margin: 1rem auto;
     position: relative;
 }
 
@@ -110,12 +111,12 @@ h1 {
 }
 
 .search-icon {
-    width: 24px;
-    height: 24px;
     position: absolute;
     right: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
     cursor: pointer;
 }
 
@@ -141,19 +142,26 @@ h1 {
 
 /* Search Results Styles */
 .results-count {
-    margin: 20px 0;
+    width: 75%;
+    max-width: 800px;
+    margin: 1rem auto;
     color: #666;
+    font-size: 1.1rem;
+    padding-left: 0.5rem;
 }
 
 .plant-card {
-    background-color: #FFF9C4;
+    width: 100%;
+    background-color: rgba(255, 248, 225, 0.8);
     padding: 15px;
     margin: 10px 0;
-    border-radius: 10px;
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
     display: flex;
     align-items: center;
     gap: 15px;
     cursor: pointer;
+    
 }
 
 .plant-card:hover {
@@ -465,36 +473,41 @@ h1 {
 .search-results-container {
     width: 85%;
     max-width: 800px;
-    margin: 2rem auto;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Results count */
-.results-count {
-    color: #666;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    padding-left: 0.5rem;
-}
-
-/* Individual result card */
+/* Individual result container */
 .plant-result {
-    background-color: white;  /* Changed to white background */
-    border: 2px solid rgba(0, 0, 0, 0.15);
-    border-radius: 15px;  /* Increased border radius */
+    background-color: rgba(255, 248, 225, 0.8);
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
     cursor: pointer;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);  /* Enhanced shadow */
-    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;  /* Take full width of parent */
 }
 
 .plant-result:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Results count styling */
+.results-count {
+    width: 75%;
+    max-width: 800px;
+    margin: 1rem auto;
+    color: #666;
+    font-size: 1.1rem;
+    padding-left: 0.5rem;
 }
 
 /* Plant image */
@@ -516,14 +529,6 @@ h1 {
     color: #666;
     font-style: italic;
     margin: 0;
-}
-
-/* Results count - moved outside cards */
-.results-count {
-    color: #666;
-    font-size: 1.1rem;
-    margin: 1rem 0;
-    padding-left: 0.5rem;
 }
 
 /* Search container on results page */
@@ -549,6 +554,40 @@ h1 {
     color: #666;
     font-size: 1.1rem;
     margin: 1rem 0;
+    padding-left: 0.5rem;
+}
+
+/* Search results wrapper */
+.search-results {
+    width: 75%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Individual plant result card */
+.plant-result {
+    background-color: rgba(255, 248, 225, 0.8);
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;  /* Take full width of parent */
+}
+
+/* Results count */
+.results-count {
+    width: 75%;
+    max-width: 800px;
+    margin: 1rem auto;
+    color: #666;
+    font-size: 1.1rem;
     padding-left: 0.5rem;
 }
  
