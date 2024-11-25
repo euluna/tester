@@ -27,8 +27,8 @@
         </form>
 
         <p class="subtitle">Learn about the plant of the day!</p>
-        <div class="placeholder-image">
-            <img src="placeholder.png" alt="Plant of the day">
+        <div id="plantOfDay" class="placeholder-image">
+            <!-- Content will be populated by JavaScript -->
         </div>
     </main>
 
@@ -40,6 +40,48 @@
         if (searchTerm) {
             window.location.href = `search-results.html?q=${encodeURIComponent(searchTerm)}`;
         }
+    });
+
+    async function getPlantOfDay() {
+        try {
+            const plantId = 1; // Hardcoded to 1 for now
+            const response = await fetch(`https://perenual.com/api/species/details/${plantId}?key=${config.API_KEY}`);
+            if (!response.ok) throw new Error('Failed to fetch plant of the day');
+            const plant = await response.json();
+            return plant;
+        } catch (error) {
+            console.error('Error fetching plant of the day:', error);
+            return null;
+        }
+    }
+
+    function displayPlantOfDay(plant) {
+        const container = document.getElementById('plantOfDay');
+        if (!plant) {
+            container.innerHTML = '<p>Failed to load plant of the day</p>';
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="plant-card" data-id="${plant.id}">
+                <img src="${plant.default_image?.thumbnail || 'placeholder.png'}" alt="${plant.common_name}">
+                <div class="plant-info">
+                    <h2>${plant.common_name}</h2>
+                    <p>${plant.scientific_name[0]}</p>
+                </div>
+            </div>
+        `;
+
+        // Add click handler to navigate to plant details
+        container.querySelector('.plant-card').addEventListener('click', () => {
+            window.location.href = `plant-info.html?id=${plant.id}`;
+        });
+    }
+
+    // Load plant of the day when page loads
+    window.addEventListener('load', async () => {
+        const plant = await getPlantOfDay();
+        displayPlantOfDay(plant);
     });
     </script>
 </body>
