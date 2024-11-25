@@ -211,4 +211,21 @@ textarea {
     color: #666;
     font-style: italic;
 }
+
+.nav-icon {
+    width: 24px;  /* Adjust size as needed */
+    height: 24px;
+    vertical-align: middle;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-left a {
+    display: flex;
+    align-items: center;
+}
  
