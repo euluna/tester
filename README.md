@@ -1,3 +1,3 @@
-Modify API key in config.js before using.
+# euluna.github.io/tester
 
-Plant of the day ID can be changed in config.js.
+**Modify API key in config.js before using.**
