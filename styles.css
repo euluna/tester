@@ -46,16 +46,10 @@ nav {
     transition: all 0.2s ease;
 }
 
-.nav-left a, .nav-right a {
-    color: #666;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-    font-weight: bold;
-    border: 2px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
+.nav-left a:hover, .nav-right a:hover {
+    border-color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 .back-button, .home-button {
@@ -70,13 +64,6 @@ a {
 .nav-right {
     display: flex;
     gap: 10px;
-}
-
-.nav-right a:hover {
-    border-color: rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
 }
 
 main {
@@ -142,11 +129,11 @@ h1 {
 
 /* Search Results Styles */
 .results-count {
-    width: 75%;
-    max-width: 800px;
-    margin: 1rem auto;
     color: #666;
     font-size: 1.1rem;
+    margin: 1rem auto;
+    width: 75%;
+    max-width: 800px;
     padding-left: 0.5rem;
 }
 
@@ -204,40 +191,14 @@ h1 {
     flex-shrink: 0;
 }
 
-.add-task-btn {
-    padding: 8px 20px;
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
 .plant-info {
-    flex: 1;
+    flex: 3;
 }
 
 .plant-info h1 {
     color: #2e7d32;
     margin-bottom: 5px;
     font-size: 24px;
-}
-
-.scientific-name {
-    font-style: italic;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.care-details {
-    margin: 15px 0;
-    line-height: 1.6;
-}
-
-.description {
-    margin-top: 15px;
-    line-height: 1.6;
 }
 
 /* Contact Form Styles */
@@ -591,13 +552,76 @@ h1 {
     padding-left: 0.5rem;
 }
 
-/* Style for results count */
-.results-count {
-    color: #666;
-    font-size: 1.1rem;
+.plant-container {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 90%;
+    max-width: 1000px;
     margin: 1rem auto;
-    width: 75%;  /* Match search container width */
-    max-width: 800px;
-    padding-left: 0.5rem;
+    display: flex;
+    gap: 1.5rem;
+    min-height: 400px;
+}
+
+.plant-image-section {
+    flex: 2;
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.plant-image-section img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.add-to-tasks {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.plant-name {
+    color: #4CAF50;
+    margin-bottom: 0.3rem;
+    text-transform: capitalize;
+}
+
+.scientific-name {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.care-info p {
+    margin: 0.5rem 0;
+    line-height: 1.4;
+}
+
+.description {
+    margin-top: 1rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .plant-container {
+        flex-direction: column;
+    }
+    
+    .plant-image-section {
+        max-width: 100%;
+    }
 }
  
