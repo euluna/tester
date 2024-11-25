@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Houseplant Assistant</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
 </head>
 <body>
     <nav>
@@ -17,7 +18,7 @@
             </a>
         </div>
         <div class="nav-right">
-            <a href="plant-info.html?id=1">Plant of the day</a>
+            <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">Plant of the day</a>
             <a href="contact.html">Contact us</a>
             <a href="about.html">About us</a>
         </div>

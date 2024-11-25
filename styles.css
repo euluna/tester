@@ -590,4 +590,14 @@ h1 {
     font-size: 1.1rem;
     padding-left: 0.5rem;
 }
+
+/* Style for results count */
+.results-count {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 1rem auto;
+    width: 75%;  /* Match search container width */
+    max-width: 800px;
+    padding-left: 0.5rem;
+}
  
