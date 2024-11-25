@@ -17,7 +17,7 @@
             </a>
         </div>
         <div class="nav-right">
-            <a href="#" class="plant-of-day-link">Plant of the day</a>
+            <a href="plant-info.html?id=1">Plant of the day</a>
             <a href="contact.html">Contact us</a>
             <a href="about.html">About us</a>
         </div>
@@ -45,6 +45,14 @@
         document.querySelectorAll('.plant-of-day-link').forEach(link => {
             link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
         });
+        // Get all nav links including Plant of the day
+        const plantOfDayButton = document.querySelector('a[href="#"]');
+        if (plantOfDayButton) {
+            plantOfDayButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'plant-info.html?random=true';
+            });
+        }
     });
     </script>
 </body>
