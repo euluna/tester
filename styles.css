@@ -6,7 +6,8 @@
 }
 
 body {
-    background-color: #e8f4ea;
+    background-color: #E8F3E8;
+    font-family: Poppins, sans-serif;
     padding: 20px;
 }
 
@@ -14,7 +15,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    padding: 15px;
 }
 
 .nav-left, .nav-right {
@@ -22,9 +23,47 @@ nav {
     gap: 15px;
 }
 
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.nav-left {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-left a {
+    background-color: #D9D9D9;
+    padding: 8px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 a {
     text-decoration: none;
     color: #2e7d32;
+}
+
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-right a {
+    background-color: #D9D9D9;
+    padding: 8px 15px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+}
+
+.nav-right a:hover {
+    background-color: #D6D6D6;
 }
 
 main {
@@ -33,27 +72,34 @@ main {
 }
 
 h1 {
-    color: #2e7d32;
+    color: #2E7D32;
+    font-weight: 600;
+    text-align: center;
     margin-bottom: 20px;
 }
 
 .search-container {
-    display: flex;
-    margin-bottom: 20px;
+    position: relative;
+    width: 80%;
+    max-width: 400px;
+    margin: 20px auto;
 }
 
-input, select {
-    flex: 1;
+.search-container input {
+    width: 100%;
     padding: 8px 15px;
     border: none;
-    border-radius: 20px;
-    background-color: #fff9c4;
+    border-radius: 25px;
+    background-color: #FFF9C4;
 }
 
-button {
-    border: none;
-    background: none;
-    margin-left: -30px;
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
 
@@ -84,10 +130,10 @@ button {
 }
 
 .plant-card {
-    background-color: #fff;
+    background-color: #FFF9C4;
     padding: 15px;
     margin: 10px 0;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -109,20 +155,65 @@ button {
 .plant-detail {
     background-color: #fff;
     padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    max-width: 800px;
+}
+
+.plant-content {
+    display: flex;
+    gap: 30px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.image-container img {
+    width: 150px;  /* Fixed square size */
+    height: 150px; /* Same as width for square */
+    object-fit: cover;
     border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.add-task-btn {
+    padding: 8px 20px;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.plant-info {
+    flex: 1;
+}
+
+.plant-info h1 {
+    color: #2e7d32;
+    margin-bottom: 5px;
+    font-size: 24px;
 }
 
 .scientific-name {
     font-style: italic;
-    margin-bottom: 15px;
+    color: #666;
+    margin-bottom: 20px;
 }
 
-.add-task-btn {
+.care-details {
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.description {
     margin-top: 15px;
-    padding: 8px 15px;
-    background-color: #2e7d32;
-    color: white;
-    border-radius: 20px;
+    line-height: 1.6;
 }
 
 /* Contact Form Styles */
@@ -178,24 +269,24 @@ textarea {
 
 #plantOfDay {
     width: 100%;
-    max-width: 400px;
+    max-width: 200px;
     margin: 20px auto;
     cursor: pointer;
 }
 
 #plantOfDay .plant-card {
     background-color: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 #plantOfDay img {
     width: 100%;
-    height: 300px;
+    height: 150px;
     object-fit: cover;
     border-radius: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 #plantOfDay .plant-info {
@@ -205,27 +296,59 @@ textarea {
 #plantOfDay h2 {
     color: #2e7d32;
     margin-bottom: 5px;
+    font-size: 1.2em;
 }
 
 #plantOfDay p {
     color: #666;
     font-style: italic;
+    font-size: 0.9em;
 }
 
-.nav-icon {
-    width: 24px;  /* Adjust size as needed */
-    height: 24px;
-    vertical-align: middle;
+.plant-card .plant-info {
+    flex: 1;
 }
 
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.plant-card h2 {
+    color: #2E7D32;
+    font-weight: 500;
+    margin-bottom: 5px;
 }
 
-.nav-left a {
-    display: flex;
-    align-items: center;
+.plant-card p {
+    font-style: italic;
+}
+
+/* Add these new styles */
+.centered-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.centered-content h1 {
+    color: #2e7d32;
+    margin-bottom: 30px;
+}
+
+.plant-of-day-box {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px auto;
+    cursor: pointer;
+    width: 300px;
+}
+
+.plant-of-day-box p {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.plant-of-day-box img {
+    width: 50px;  /* Smaller image */
+    height: 50px;
+    object-fit: cover;
 }
  

@@ -9,11 +9,15 @@
 <body>
     <nav>
         <div class="nav-left">
-            <a href="#" class="back-arrow">←</a>
-            <a href="index.html" class="home-icon">⌂</a>
+            <a href="javascript:void(0)" onclick="window.history.back()" class="back-arrow">
+                <img src="images/back.png" alt="Back" class="nav-icon">
+            </a>
+            <a href="index.html" class="home-icon">
+                <img src="images/homebutton.png" alt="Home" class="nav-icon">
+            </a>
         </div>
         <div class="nav-right">
-            <a href="plant-of-day.html">Plant of the day</a>
+            <a href="#" class="plant-of-day-link">Plant of the day</a>
             <a href="contact.html">Contact us</a>
             <a href="about.html">About us</a>
         </div>
@@ -26,5 +30,14 @@
             <p>Welcome to Houseplant Assistant, your go-to web app for personalized houseplant care advice! Designed for plant enthusiasts of all levels, our platform leverages the Perennia API to provide expert tips and reliable information on a variety of houseplant species. Whether you need guidance on watering schedules, light requirements, or general plant care, we're here to help your indoor garden thrive.</p>
         </div>
     </main>
+
+    <script src="js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.plant-of-day-link').forEach(link => {
+            link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
+        });
+    });
+    </script>
 </body>
 </html> 
