@@ -21,7 +21,7 @@
 
     <main>
         <div class="search-container">
-            <input type="text" id="searchInput">
+            <input type="text" id="searchInput" value="">
             <button id="searchButton">🔍</button>
         </div>
 
@@ -32,14 +32,27 @@
     <script src="config.js"></script>
     <script>
     async function searchPlants(query) {
-        const response = await fetch(`https://perenual.com/api/species-list?key=${config.API_KEY}&q=${query}`);
-        const data = await response.json();
-        return data;
+        try {
+            const response = await fetch(`https://perenual.com/api/species-list?key=${config.API_KEY}&q=${query}`);
+            if (!response.ok) {
+                throw new Error('API request failed');
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching plants:', error);
+            return null;
+        }
     }
 
     function displayResults(results) {
         const resultsContainer = document.querySelector('.search-results');
         const resultsCount = document.querySelector('.results-count');
+        
+        if (!results || !results.data) {
+            resultsContainer.innerHTML = '<p>No results found or error occurred</p>';
+            return;
+        }
         
         resultsCount.textContent = `${results.data.length} results for "${document.getElementById('searchInput').value}"`;
         
@@ -68,6 +81,15 @@
         if (query) {
             document.getElementById('searchInput').value = query;
             const results = await searchPlants(query);
+            displayResults(results);
+        }
+    });
+
+    // Add search button functionality
+    document.getElementById('searchButton').addEventListener('click', async () => {
+        const searchTerm = document.getElementById('searchInput').value.trim();
+        if (searchTerm) {
+            const results = await searchPlants(searchTerm);
             displayResults(results);
         }
     });

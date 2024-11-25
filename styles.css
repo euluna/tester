@@ -80,6 +80,7 @@ button {
 /* Search Results Styles */
 .results-count {
     margin: 20px 0;
+    color: #666;
 }
 
 .plant-card {
@@ -90,12 +91,18 @@ button {
     display: flex;
     align-items: center;
     gap: 15px;
+    cursor: pointer;
+}
+
+.plant-card:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .plant-card img {
     width: 80px;
     height: 80px;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 /* Plant Detail Styles */
@@ -163,4 +170,9 @@ textarea {
 
 .plant-content p {
     margin-bottom: 15px;
-} 
+}
+
+.search-results {
+    margin-top: 20px;
+}
+ 

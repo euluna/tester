@@ -20,19 +20,46 @@
     </nav>
 
     <main>
-        <div class="plant-detail">
-            <img src="placeholder.png" alt="Peppermint">
-            <div class="plant-content">
-                <h1>Peppermint</h1>
-                <p class="scientific-name">Mentha × piperita</p>
-                <p class="description">
-                    Watering frequency: 2-3 times a week<br>
-                    Light preference: Partial sun<br>
-                    Requirements: moist soil and plenty of drainage
-                </p>
-                <button class="add-task-btn">Add to tasks</button>
-            </div>
+        <div class="plant-detail" id="plantDetail">
+            <!-- Content will be populated by JavaScript -->
         </div>
     </main>
+
+    <script src="config.js"></script>
+    <script>
+    async function getPlantDetails(id) {
+        const response = await fetch(`https://perenual.com/api/species/details/${id}?key=${config.API_KEY}`);
+        const data = await response.json();
+        return data;
+    }
+
+    function displayPlantDetails(plant) {
+        const detailContainer = document.getElementById('plantDetail');
+        detailContainer.innerHTML = `
+            <img src="${plant.default_image?.regular_url || 'placeholder.png'}" alt="${plant.common_name}">
+            <div class="plant-content">
+                <h1>${plant.common_name}</h1>
+                <p class="scientific-name">${plant.scientific_name.join(', ')}</p>
+                <p class="description">
+                    Watering frequency: ${plant.watering_general_benchmark?.value || 'Not specified'}<br>
+                    Light preference: ${plant.sunlight.join(', ')}<br>
+                    Care level: ${plant.care_level}
+                </p>
+                <p>${plant.description}</p>
+                <button class="add-task-btn">Add to tasks</button>
+            </div>
+        `;
+    }
+
+    // Load plant details on page load
+    window.addEventListener('load', async () => {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (id) {
+            const plant = await getPlantDetails(id);
+            displayPlantDetails(plant);
+        }
+    });
+    </script>
 </body>
 </html> 

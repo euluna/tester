@@ -36,8 +36,10 @@
     <script>
     document.getElementById('searchForm').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const searchTerm = document.getElementById('searchInput').value;
-        window.location.href = `search-results.html?q=${encodeURIComponent(searchTerm)}`;
+        const searchTerm = document.getElementById('searchInput').value.trim();
+        if (searchTerm) {
+            window.location.href = `search-results.html?q=${encodeURIComponent(searchTerm)}`;
+        }
     });
     </script>
 </body>
