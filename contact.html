@@ -27,13 +27,14 @@
         <h1>Contact us</h1>
         
         <form class="contact-form">
-            <input type="email" placeholder="Email address">
-            <select>
-                <option>General Inquiries</option>
-                <option>Support</option>
-                <option>Feedback</option>
+            <input type="email" placeholder="Email address" required>
+            <select required>
+                <option value="">General Inquiries</option>
+                <option value="support">Technical Support</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Other</option>
             </select>
-            <textarea placeholder="Enter message"></textarea>
+            <textarea placeholder="Enter message" required></textarea>
             <button type="submit">Submit</button>
         </form>
     </main>

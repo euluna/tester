@@ -34,13 +34,32 @@ nav {
     gap: 10px;
 }
 
-.nav-left a {
-    background-color: #D9D9D9;
-    padding: 8px;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.nav-left a, .nav-right a {
+    color: #666;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.nav-left a, .nav-right a {
+    color: #666;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.back-button, .home-button {
+    background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 a {
@@ -53,17 +72,11 @@ a {
     gap: 10px;
 }
 
-.nav-right a {
-    background-color: #D9D9D9;
-    padding: 8px 15px;
-    border-radius: 25px;
-    text-decoration: none;
-    color: #000;
-    font-weight: 500;
-}
-
 .nav-right a:hover {
-    background-color: #D6D6D6;
+    border-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 main {
@@ -75,31 +88,34 @@ h1 {
     color: #2E7D32;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
 }
 
 .search-container {
+    width: 85%;
+    margin: 0 auto 1.5rem auto;
     position: relative;
-    width: 80%;
-    max-width: 400px;
-    margin: 20px auto;
 }
 
 .search-container input {
     width: 100%;
-    padding: 8px 15px;
-    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    border: 3px solid rgba(0, 0, 0, 0.15);
     border-radius: 25px;
-    background-color: #FFF9C4;
+    background-color: rgba(255, 248, 225, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 }
 
 .search-icon {
+    width: 24px;
+    height: 24px;
     position: absolute;
-    right: 15px;
+    right: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
     cursor: pointer;
 }
 
@@ -218,26 +234,61 @@ h1 {
 
 /* Contact Form Styles */
 .contact-form {
+    width: 85%;
+    max-width: 800px;
+    margin: 2rem auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 1rem;
 }
 
-textarea {
-    height: 150px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #fff9c4;
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    background-color: rgba(255, 248, 225, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.contact-form textarea {
+    min-height: 200px;
     resize: vertical;
+    border-radius: 15px;  /* Slightly less rounded for the larger box */
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 248, 225, 0.95);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 .contact-form button {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 8px 20px;
-    background-color: #fff;
+    align-self: center;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #666;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.contact-form button:hover {
+    border-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 /* About Page Styles */
@@ -322,9 +373,9 @@ textarea {
 /* Add these new styles */
 .centered-content {
     text-align: center;
+    padding-top: 2rem;
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
 }
 
 .centered-content h1 {
@@ -333,22 +384,171 @@ textarea {
 }
 
 .plant-of-day-box {
-    background-color: #D9D9D9;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 20px auto;
-    cursor: pointer;
+    background-color: white;
+    border-radius: 8px;
+    padding: 0.8rem;
+    margin: 0 auto;
     width: 300px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.plant-of-day-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 .plant-of-day-box p {
-    margin-bottom: 10px;
-    color: #666;
+    font-size: 1.1rem;
+    color: #4CAF50;
+    font-weight: bold;
+    margin: 0;
 }
 
 .plant-of-day-box img {
-    width: 50px;  /* Smaller image */
-    height: 50px;
+    width: 110px;
+    height: 110px;
     object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #4CAF50;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 248, 225, 0.95);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+    color: #2d7a32;  /* Match the green from index */
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* About container */
+.about-container {
+    width: 85%;
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+h1 {
+    color: #2d7a32;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* About text styling */
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Search results container */
+.search-results-container {
+    width: 85%;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+/* Results count */
+.results-count {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+}
+
+/* Individual result card */
+.plant-result {
+    background-color: white;  /* Changed to white background */
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 15px;  /* Increased border radius */
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);  /* Enhanced shadow */
+    transition: all 0.2s ease;
+}
+
+.plant-result:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Plant image */
+.plant-result img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Plant text info */
+.plant-info h2 {
+    color: #2d7a32;
+    font-size: 1.2rem;
+    margin: 0 0 0.3rem 0;
+}
+
+.plant-info p {
+    color: #666;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Results count - moved outside cards */
+.results-count {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    padding-left: 0.5rem;
+}
+
+/* Search container on results page */
+.search-results-page .search-container {
+    width: 85%;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+/* Search input */
+.search-results-page .search-container input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    background-color: rgba(255, 248, 225, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Results count */
+.results-count {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    padding-left: 0.5rem;
 }
  
