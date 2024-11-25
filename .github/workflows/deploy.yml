@@ -21,11 +21,9 @@ jobs:
         node-version: '16'
 
     # Step 3: Install dependencies and build the project
-    - name: Install dependencies and build
-      run: |
-        npm install
-        echo "REACT_APP_API_KEY=${{ secrets.API_KEY }}" >> .env  # Add API key to .env file
-        npm run build
+    - name: Build static files
+      run: echo "No build needed for static site"
+
 
     # Step 4: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
