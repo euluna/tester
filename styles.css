@@ -148,4 +148,19 @@ textarea {
     padding: 20px;
     border-radius: 5px;
     line-height: 1.6;
+}
+
+.plant-detail img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.plant-content {
+    line-height: 1.6;
+}
+
+.plant-content p {
+    margin-bottom: 15px;
 } 

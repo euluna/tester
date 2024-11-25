@@ -21,37 +21,56 @@
 
     <main>
         <div class="search-container">
-            <input type="text" value="mint">
-            <button>🔍</button>
+            <input type="text" id="searchInput">
+            <button id="searchButton">🔍</button>
         </div>
 
-        <p class="results-count">4 results for "mint"</p>
-
-        <div class="search-results">
-            <div class="plant-card">
-                <img src="placeholder.png" alt="Peppermint">
-                <div class="plant-info">
-                    <h2>Peppermint</h2>
-                    <p>Mentha × piperita</p>
-                </div>
-            </div>
-
-            <div class="plant-card">
-                <img src="placeholder.png" alt="Spearmint">
-                <div class="plant-info">
-                    <h2>Spearmint</h2>
-                    <p>Mentha spicata</p>
-                </div>
-            </div>
-
-            <div class="plant-card">
-                <img src="placeholder.png" alt="Applemint">
-                <div class="plant-info">
-                    <h2>Applemint</h2>
-                    <p>Mentha suaveolens</p>
-                </div>
-            </div>
-        </div>
+        <p class="results-count"></p>
+        <div class="search-results"></div>
     </main>
+
+    <script src="config.js"></script>
+    <script>
+    async function searchPlants(query) {
+        const response = await fetch(`https://perenual.com/api/species-list?key=${config.API_KEY}&q=${query}`);
+        const data = await response.json();
+        return data;
+    }
+
+    function displayResults(results) {
+        const resultsContainer = document.querySelector('.search-results');
+        const resultsCount = document.querySelector('.results-count');
+        
+        resultsCount.textContent = `${results.data.length} results for "${document.getElementById('searchInput').value}"`;
+        
+        resultsContainer.innerHTML = results.data.map(plant => `
+            <div class="plant-card" data-id="${plant.id}">
+                <img src="${plant.default_image?.thumbnail || 'placeholder.png'}" alt="${plant.common_name}">
+                <div class="plant-info">
+                    <h2>${plant.common_name}</h2>
+                    <p>${plant.scientific_name[0]}</p>
+                </div>
+            </div>
+        `).join('');
+
+        // Add click handlers for plant cards
+        document.querySelectorAll('.plant-card').forEach(card => {
+            card.addEventListener('click', () => {
+                window.location.href = `plant-info.html?id=${card.dataset.id}`;
+            });
+        });
+    }
+
+    // Load search results on page load
+    window.addEventListener('load', async () => {
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get('q');
+        if (query) {
+            document.getElementById('searchInput').value = query;
+            const results = await searchPlants(query);
+            displayResults(results);
+        }
+    });
+    </script>
 </body>
 </html> 

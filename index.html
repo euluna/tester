@@ -21,15 +21,24 @@
     <main>
         <h1>Houseplant Assistant</h1>
         
-        <div class="search-container">
-            <input type="text" placeholder="Search for a houseplant">
-            <button>🔍</button>
-        </div>
+        <form id="searchForm" class="search-container">
+            <input type="text" placeholder="Search for a houseplant" id="searchInput">
+            <button type="submit">🔍</button>
+        </form>
 
         <p class="subtitle">Learn about the plant of the day!</p>
         <div class="placeholder-image">
             <img src="placeholder.png" alt="Plant of the day">
         </div>
     </main>
+
+    <script src="config.js"></script>
+    <script>
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const searchTerm = document.getElementById('searchInput').value;
+        window.location.href = `search-results.html?q=${encodeURIComponent(searchTerm)}`;
+    });
+    </script>
 </body>
 </html> 
