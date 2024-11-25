@@ -55,6 +55,9 @@
         }
 
         function displayResults(results) {
+            const resultsCount = document.querySelector('.results-count');
+            resultsCount.textContent = `${results.data.length} results for "${document.getElementById('searchInput').value}"`;
+            
             const resultsContainer = document.querySelector('.search-results');
             resultsContainer.innerHTML = '';
             
