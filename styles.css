@@ -818,6 +818,7 @@ h1 {
 }
 
 .plant-details-section h1 {
+    text-transform: capitalize;
     color: #2d7a32;
     font-size: 1.5rem;
     margin-bottom: 0.5rem;  /* Reduced space between names */
