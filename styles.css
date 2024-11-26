@@ -165,7 +165,7 @@ h1 {
 /* Plant Detail Styles */
 .plant-detail {
     background-color: #fff;
-    padding: 20px;
+    padding: 0px;
     border-radius: 10px;
     margin: 20px;
     max-width: 800px;
@@ -565,7 +565,7 @@ h1 {
 }
 
 .plant-image-section {
-    flex: 0 0 30%;
+    flex: 0 0 25%;
     max-width: 40%;
     display: flex;
     flex-direction: column;
@@ -576,6 +576,7 @@ h1 {
 
 .plant-image-section img {
     width: 100%;
+    max-width: 35vw;
     aspect-ratio: 1;
     object-fit: cover;
     border-radius: 6px;
@@ -583,6 +584,7 @@ h1 {
 
 .add-to-tasks {
     width: 100%;
+    max-width: 50vw;
     padding: 0.6rem;
     background-color: #4CAF50;
     color: white;
@@ -605,14 +607,23 @@ h1 {
     text-align: center;
 }
 
-.care-info p {
-    margin: 0.5rem 0;
+.care-info {
+    font-size: 0.9rem;
     line-height: 1.4;
 }
 
+.care-detail {
+    margin-bottom: 0.3rem;
+}
+
 .description {
-    margin-top: 1rem;
-    line-height: 1.5;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+}
+
+.care-detail strong {
+    font-size: 0.9rem;
+    color: #333;
 }
 
 @media (max-width: 768px) {
@@ -801,14 +812,19 @@ h1 {
 }
 
 .care-info {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
 .care-detail {
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;
 }
 
 .description {
-    margin-top: 1.5rem;
+    margin-top: 0.8rem;
+}
+
+.description strong {
+    font-size: 0.9rem;
+    color: #333;
 }
