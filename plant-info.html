@@ -60,57 +60,48 @@
 
     async function displayPlantDetails() {
         try {
-            const params = new URLSearchParams(window.location.search);
-            const plantId = params.get('id');
+            const urlParams = new URLSearchParams(window.location.search);
+            const plantId = urlParams.get('id');
             
             if (!plantId) {
-                document.querySelector('.plant-details').innerHTML = '<p>No plant selected</p>';
+                throw new Error('No plant ID provided');
+            }
+
+            const response = await fetch(`https://perenual.com/api/species/details/${plantId}?key=${config.API_KEY}`);
+            const data = await response.json();
+            
+            // Check if plant is behind paywall
+            if (data.cycle?.includes('Upgrade Plans') || 
+                data.watering?.includes('Upgrade Plans') || 
+                data.sunlight?.includes('Upgrade Plans')) {
+                document.querySelector('.plant-details').innerHTML = `
+                    <div class="plant-container" style="min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                        <div class="plant-details-section" style="text-align: center; width: 100%; max-width: 400px;">
+                            <h1 style="color: #2d7a32; margin-bottom: 1.5rem;">Plant is not available</h1>
+                            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Can only afford free access</p>
+                            
+                        </div>
+                    </div>
+                `;
                 return;
             }
 
-            const plant = await getPlantDetails(plantId);
-            if (!plant) {
-                document.querySelector('.plant-details').innerHTML = '<p>Failed to load plant details</p>';
-                return;
-            }
-
-            // Function to determine care level
-            function getCareLevel(plant) {
-                const factors = {
-                    watering: plant.watering || '',
-                    sunlight: plant.sunlight || [],
-                    maintenance: plant.maintenance || ''
-                };
-                
-                // Simple algorithm to determine care level
-                if (factors.watering.toLowerCase().includes('minimum') || 
-                    factors.watering.toLowerCase().includes('low')) {
-                    return 'Easy';
-                } else if (factors.watering.toLowerCase().includes('frequent') || 
-                          factors.watering.toLowerCase().includes('high')) {
-                    return 'Difficult';
-                }
-                return 'Moderate';
-            }
-
+            // If not behind paywall, display plant details as normal
             const plantHtml = `
                 <div class="plant-container">
                     <div class="plant-image-section">
-                        <img src="${plant.default_image?.original_url || 'images/plantplaceholder.png'}" 
-                             alt="${plant.common_name || 'Plant image'}"
-                             onerror="this.src='images/plantplaceholder.png'">
-                        <button class="add-to-tasks">Add to tasks</button>
+                        <img src="${data.default_image ? data.default_image.regular_url : 'images/placeholder.png'}" alt="${data.common_name}">
+                        <button class="add-to-tasks" onclick="addToTasks(${data.id})">Add to my tasks</button>
                     </div>
-                    <div class="plant-info">
-                        <h1 class="plant-name">${plant.common_name || 'Unknown Plant'}</h1>
-                        <p class="scientific-name">${plant.scientific_name?.[0] || 'Scientific name not available'}</p>
-                        
+                    <div class="plant-details-section">
+                        <h1>${data.common_name}</h1>
+                        <h2>${data.scientific_name}</h2>
                         <div class="care-info">
-                            <p class="care-detail"><strong>Watering:</strong> ${plant.watering || 'Information not available'}</p>
-                            <p class="care-detail"><strong>Sunlight:</strong> ${Array.isArray(plant.sunlight) ? plant.sunlight.join(', ') : (plant.sunlight || 'Information not available')}</p>
-                            <p class="care-detail"><strong>Care Level:</strong> ${getCareLevel(plant)}</p>
+                            <p class="care-detail"><strong>Watering:</strong> ${data.watering || 'Information not available'}</p>
+                            <p class="care-detail"><strong>Sunlight:</strong> ${Array.isArray(data.sunlight) ? data.sunlight.join(', ') : (data.sunlight || 'Information not available')}</p>
+                            <p class="care-detail"><strong>Care Level:</strong> ${getCareLevel(data)}</p>
                             <div class="description">
-                                <p><strong>Description:</strong> ${plant.description || 'No description available'}</p>
+                                <p><strong>Description:</strong> ${data.description || 'No description available'}</p>
                             </div>
                         </div>
                     </div>
@@ -119,8 +110,17 @@
 
             document.querySelector('.plant-details').innerHTML = plantHtml;
         } catch (error) {
-            console.error('Error in displayPlantDetails:', error);
-            document.querySelector('.plant-details').innerHTML = '<p>Error loading plant details</p>';
+            console.error('Error:', error);
+            document.querySelector('.plant-details').innerHTML = `
+                <div class="plant-container" style="min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                    <div class="plant-details-section" style="text-align: center; width: 100%; max-width: 400px;">
+                        <h1 style="color: #2d7a32; margin-bottom: 1.5rem;">Plant is not available</h1>
+                        <img src="images/broke.jpg" alt="Broke" style="width: 100px; margin-bottom: 1.5rem;">
+                        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Can only afford free access. :)</p>
+                        <button class="add-to-tasks" onclick="window.history.back()">Go Back</button>
+                    </div>
+                </div>
+            `;
         }
     }
 
