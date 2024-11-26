@@ -36,26 +36,63 @@
 
     <main>
         <h1>Contact us</h1>
-        
-        <form class="contact-form">
-            <input type="email" placeholder="Email address" required>
-            <select required>
-                <option value="general">General Inquiries</option>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/movqkayn" method="POST">
+            <input type="email" name="email" id="emailInput" placeholder="Email address" required>
+            <select name="category" id="categoryInput" required>
+                <option value="">Select purpose</option>
                 <option value="support">Technical Support</option>
                 <option value="feedback">Feedback</option>
                 <option value="other">Other</option>
             </select>
-            <textarea placeholder="Enter message" required></textarea>
+            <textarea name="message" id="messageInput" placeholder="Enter message" required></textarea>
             <button type="submit">Submit</button>
         </form>
+
+        <div class="popup" id="successPopup">
+            <div class="popup-content">
+                <h2>Thank You!</h2>
+                <p>Your message has been sent successfully.</p>
+                <button onclick="closePopup()">Close</button>
+            </div>
+        </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.plant-of-day-link').forEach(link => {
-                link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    this.reset();
+                    document.getElementById('successPopup').style.display = 'block';
+                } else {
+                    throw new Error(data.error || 'Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error details:', error);
+                alert('Sorry, there was a problem submitting your form. Please try again.');
             });
         });
+
+        function closePopup() {
+            document.getElementById('successPopup').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const popup = document.getElementById('successPopup');
+            if (event.target == popup) {
+                popup.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html> 
