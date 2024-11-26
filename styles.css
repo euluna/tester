@@ -762,3 +762,24 @@ h1 {
 .contact-form select::-ms-expand {
     display: none;
 }
+
+.about-text p {
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+}
+
+.about-text ul {
+    margin: 1rem 0 1.5rem 2rem;
+    line-height: 1.6;
+}
+
+.about-text ul li {
+    margin-bottom: 0.5rem;
+}
+
+.team-note {
+    text-align: center;
+    color: #4CAF50;
+    font-weight: bold;
+    margin-top: 2rem;
+}
