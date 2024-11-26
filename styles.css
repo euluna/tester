@@ -16,6 +16,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
+    width: 100%;
 }
 
 .nav-left, .nav-right {
@@ -31,7 +32,14 @@ nav {
 
 .nav-left {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }
 
 .nav-left a, .nav-right a {
@@ -629,6 +637,7 @@ h1 {
 @media (max-width: 768px) {
     .plant-container {
         flex-direction: column;
+        padding-top: 2rem;
     }
     
     .plant-image-section {
@@ -644,24 +653,25 @@ h1 {
 
 @media (max-width: 768px) {
     nav {
-        justify-content: space-around;
+        padding: 10px;  /* Slightly reduced padding */
+        justify-content: space-between;  /* Maintain spread */
     }
 
-    .nav-left, .nav-right {
-        gap: 8px;
+    .nav-left {
+        gap: 0.5rem;  /* Reduced gap for smaller screens */
     }
 
+    .nav-right {
+        gap: 0.5rem;  /* Reduced gap for smaller screens */
+    }
+
+    /* If you're hiding text on mobile, keep the icons properly aligned */
     .nav-text {
         display: none;
     }
 
     .nav-icon-only {
         display: inline;
-    }
-
-    .nav-left a, .nav-right a {
-        padding: 0.5rem;
-        min-width: auto;
     }
 }
 
