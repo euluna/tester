@@ -745,3 +745,20 @@ h1 {
     background-color: #45a049;
     transform: translateY(-1px);
 }
+
+/* Add to your existing styles */
+.contact-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('images/dropdown.png');
+    background-repeat: no-repeat;
+    background-position: right 1.5rem center;
+    background-size: 24px;
+    padding-right: 3rem; /* Make room for the icon */
+}
+
+/* Remove default arrow in IE */
+.contact-form select::-ms-expand {
+    display: none;
+}
