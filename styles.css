@@ -357,8 +357,11 @@ h1 {
 }
 
 .centered-content h1 {
-    color: #2e7d32;
-    margin-bottom: 30px;
+    color: #2d7a32;
+    text-align: center;
+    font-size: min(2.5rem, 8vw);  /* Responsive font size */
+    margin-bottom: 2rem;
+    white-space: nowrap;  /* Prevent wrapping */
 }
 
 .plant-of-day-box {
@@ -535,6 +538,12 @@ h1 {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .search-results {
+        width: 90%;
+    }
 }
 
 /* Individual plant result card */
@@ -840,4 +849,57 @@ h1 {
 .description strong {
     font-size: 0.9rem;
     color: #333;
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        width: 90%;  /* Wider on mobile */
+        min-width: unset;  /* Remove min-width constraint */
+        margin: 1.5rem auto;
+    }
+
+    .search-container input {
+        font-size: 1rem;  /* Slightly smaller font for mobile */
+        padding: 0.8rem 1.2rem;  /* Slightly adjusted padding */
+    }
+}
+
+/* Update existing plant-result styles */
+.plant-result {
+    background-color: rgba(255, 248, 225, 0.8);
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Add media query for mobile screens */
+@media (max-width: 768px) {
+    .search-results-container {
+        width: 95%;  /* Make container wider on mobile */
+    }
+
+    .plant-result {
+        padding: 0.8rem;  /* Reduce padding */
+        gap: 0.8rem;     /* Reduce gap between image and text */
+    }
+
+    .plant-result img {
+        width: 60px;     /* Make image smaller */
+        height: 60px;    /* Keep it square */
+    }
+
+    .plant-info h2 {
+        font-size: 1rem;  /* Smaller font size for title */
+        margin-bottom: 0.2rem;
+    }
+
+    .plant-info p {
+        font-size: 0.8rem;  /* Smaller font for scientific name */
+    }
 }
