@@ -80,7 +80,9 @@
             const plantHtml = `
                 <div class="plant-container">
                     <div class="plant-image-section">
-                        <img src="${data.default_image ? data.default_image.regular_url : 'images/placeholder.png'}" alt="${data.common_name}">
+                        <img src="${data.default_image?.regular_url || data.default_image?.original_url || 'images/plantplaceholder.png'}" 
+                             alt="${data.common_name || 'Plant'}" 
+                             onerror="this.src='images/plantplaceholder.png'">
                         <button class="add-to-tasks" onclick="addToTasks(${data.id})">Add to my tasks</button>
                     </div>
                     <div class="plant-details-section">

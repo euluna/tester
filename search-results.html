@@ -72,7 +72,7 @@
             
             results.data.forEach(plant => {
                 const properName = toProperCase(plant.common_name);
-                const imageSrc = plant.default_image?.thumbnail || 'images/plantplaceholder.png';
+                const imageSrc = plant.default_image?.thumbnail || plant.default_image?.regular_url || plant.default_image?.original_url || 'images/plantplaceholder.png';
                 
                 const div = document.createElement('div');
                 div.className = 'plant-result';

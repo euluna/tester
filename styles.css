@@ -796,8 +796,9 @@ h1 {
 }
 
 .plant-details-section h1 {
+    text-transform: capitalize;
     color: #2d7a32;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;  /* Reduced space between names */
     font-weight: bold;
 }
@@ -805,9 +806,9 @@ h1 {
 .plant-details-section h2 {
     text-align: center;
     color: #666;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-style: italic;
-    margin-bottom: 2rem;  /* More space after scientific name */
+    margin-bottom: 1rem;  /* More space after scientific name */
     font-weight: normal;  /* Less bold than common name */
 }
 
