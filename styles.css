@@ -565,7 +565,7 @@ h1 {
 }
 
 .plant-image-section {
-    flex: 2;
+    flex: 0 0 30%;
     max-width: 40%;
     display: flex;
     flex-direction: column;
@@ -782,4 +782,33 @@ h1 {
     color: #4CAF50;
     font-weight: bold;
     margin-top: 2rem;
+}
+
+.plant-details-section h1 {
+    color: #2d7a32;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;  /* Reduced space between names */
+    font-weight: bold;
+}
+
+.plant-details-section h2 {
+    text-align: center;
+    color: #666;
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 2rem;  /* More space after scientific name */
+    font-weight: normal;  /* Less bold than common name */
+}
+
+.care-info {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.care-detail {
+    margin-bottom: 1rem;
+}
+
+.description {
+    margin-top: 1.5rem;
 }
