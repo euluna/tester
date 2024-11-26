@@ -11,17 +11,26 @@
 <body>
     <nav>
         <div class="nav-left">
-            <a href="javascript:void(0)" onclick="window.history.back()" class="back-arrow">
+            <a href="javascript:void(0)" onclick="window.history.back()">
                 <img src="images/back.png" alt="Back" class="nav-icon">
             </a>
-            <a href="index.html" class="home-icon">
+            <a href="index.html">
                 <img src="images/homebutton.png" alt="Home" class="nav-icon">
             </a>
         </div>
         <div class="nav-right">
-            <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">Plant of the day</a>
-            <a href="contact.html">Contact us</a>
-            <a href="about.html">About us</a>
+            <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
+                <span class="nav-text">Plant of the day</span>
+                <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
+            </a>
+            <a href="contact.html">
+                <span class="nav-text">Contact us</span>
+                <img src="images/contact.png" alt="Contact" class="nav-icon-only">
+            </a>
+            <a href="about.html">
+                <span class="nav-text">About us</span>
+                <img src="images/about.png" alt="About" class="nav-icon-only">
+            </a>
         </div>
     </nav>
 
@@ -31,7 +40,7 @@
         <form class="contact-form">
             <input type="email" placeholder="Email address" required>
             <select required>
-                <option value="">General Inquiries</option>
+                <option value="general">General Inquiries</option>
                 <option value="support">Technical Support</option>
                 <option value="feedback">Feedback</option>
                 <option value="other">Other</option>

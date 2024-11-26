@@ -628,3 +628,74 @@ h1 {
 .care-detail {
     text-transform: capitalize;
 }
+
+/* Add these styles for responsive navigation */
+
+@media (max-width: 768px) {
+    nav {
+        justify-content: space-around;
+    }
+
+    .nav-left, .nav-right {
+        gap: 8px;
+    }
+
+    .nav-text {
+        display: none;
+    }
+
+    .nav-icon-only {
+        display: inline;
+    }
+
+    .nav-left a, .nav-right a {
+        padding: 0.5rem;
+        min-width: auto;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    nav {
+        padding: 10px;
+    }
+
+    .nav-left a, .nav-right a {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    /* Hide "Plant of the day" text on very small screens */
+    .nav-right a:first-child {
+        display: none;
+    }
+}
+
+/* Add these icon classes to your existing nav styles */
+.nav-text {
+    display: inline;
+}
+
+.nav-icon-only {
+    display: none;
+    width: 24px;
+    height: 24px;
+}
+
+/* Update media query */
+@media (max-width: 768px) {
+    .nav-text {
+        display: none;
+    }
+
+    .nav-icon-only {
+        display: inline;
+    }
+
+    .nav-left a, .nav-right a {
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
