@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <script src="config.js"></script>
+    <script src="notion-tasks.js"></script>
 </head>
 <body>
     <nav>
@@ -37,7 +38,6 @@
     <main>
         <div class="plant-detail" id="plantDetail">
             <div class="plant-details">
-                <!-- Content will be inserted here by JavaScript -->
             </div>
         </div>
     </main>
@@ -59,57 +59,86 @@
     }
 
     async function displayPlantDetails() {
-        try {
-            const urlParams = new URLSearchParams(window.location.search);
-            const plantId = urlParams.get('id');
-            
-            if (!plantId) {
-                throw new Error('No plant ID provided');
-            }
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const plantId = urlParams.get('id');
+        
+        if (!plantId) {
+            throw new Error('No plant ID provided');
+        }
 
-            const response = await fetch(`https://perenual.com/api/species/details/${plantId}?key=${config.API_KEY}`);
-            const data = await response.json();
-            
-            // Check if it's a paywall response
-            if (data.message === "Please Upgrade Plan - https://perenual.com/subscription-api-pricing. Sorry") {
-                showPaywallMessage();
-                return;
-            }
+        const response = await fetch(`https://perenual.com/api/species/details/${plantId}?key=${config.API_KEY}`);
+        const data = await response.json();
+        
+        // Check if it's a paywall response
+        if (data.message === "Please Upgrade Plan - https://perenual.com/subscription-api-pricing. Sorry") {
+            showPaywallMessage();
+            return;
+        }
 
-            // If not behind paywall, display plant details as normal
-            const plantHtml = `
-                <div class="plant-container">
-                    <div class="plant-image-section">
-                        <img src="${data.default_image?.regular_url || data.default_image?.original_url || 'images/plantplaceholder.png'}" 
-                             alt="${data.common_name || 'Plant'}" 
-                             onerror="this.src='images/plantplaceholder.png'">
-                        <button class="add-to-tasks" onclick="addToTasks(${data.id})">Add to my tasks</button>
-                    </div>
-                    <div class="plant-details-section">
-                        <h1>${data.common_name}</h1>
-                        <h2>${data.scientific_name[0]}</h2>
-                        <div class="care-info">
-                            <p class="care-detail"><strong>Watering:</strong> ${data.watering || 'Information not available'}</p>
-                            <p class="care-detail"><strong>Sunlight:</strong> ${Array.isArray(data.sunlight) ? data.sunlight.join(', ') : (data.sunlight || 'Information not available')}</p>
-                            <p class="care-detail"><strong>Care Level:</strong> ${data.care_level || 'Information not available'}</p>
-                            <div class="description">
-                                <p><strong>Description:</strong> ${data.description || 'No description available'}</p>
-                            </div>
+        // Dynamically create HTML with plant details and pass values to the button
+        const plantHtml = `
+            <div class="plant-container">
+                <div class="plant-image-section">
+                    <img src="${data.default_image?.regular_url || data.default_image?.original_url || 'images/plantplaceholder.png'}" 
+                         alt="${data.common_name || 'Plant'}" 
+                         onerror="this.src='images/plantplaceholder.png'">
+                    <button class="add-to-tasks" onclick="addToNotion('${plantId}', '${data.common_name}')">Add to my tasks</button>
+                </div>
+                <div class="plant-details-section">
+                    <h1>${data.common_name}</h1>
+                    <h2>${data.scientific_name[0]}</h2>
+                    <div class="care-info">
+                        <p class="care-detail"><strong>Watering:</strong> ${data.watering || 'Information not available'}</p>
+                        <p class="care-detail"><strong>Sunlight:</strong> ${Array.isArray(data.sunlight) ? data.sunlight.join(', ') : (data.sunlight || 'Information not available')}</p>
+                        <p class="care-detail"><strong>Care Level:</strong> ${data.care_level || 'Information not available'}</p>
+                        <div class="description">
+                            <p><strong>Description:</strong> ${data.description || 'No description available'}</p>
                         </div>
                     </div>
                 </div>
-            `;
+            </div>
+        `;
 
-            document.querySelector('.plant-details').innerHTML = plantHtml;
-        } catch (error) {
-            console.error('Error:', error);
-            showPaywallMessage();
-        }
+        document.querySelector('.plant-details').innerHTML = plantHtml;
+    } catch (error) {
+        console.error('Error:', error);
+        showPaywallMessage();
     }
+}
 
-    function addToTasks(plantId) {
-        // Add to tasks functionality here
-        console.log('Adding plant', plantId, 'to tasks');
+    async function addToNotion(plantId, plantName) {
+        const taskDetails = {
+            parent: { database_id: config.NOTION_DATABASE_ID },
+            properties: {
+                Name: { title: [{ text: { content: `Care for ${plantName}` } }] },
+                Description: { rich_text: [{ text: { content: `Plant ID: ${plantId}. Remember to care for your plant!` } }] },
+                Date: { date: { start: prompt('Enter due date (YYYY-MM-DD):') || new Date().toISOString().split('T')[0] } }
+            }
+        };
+
+        try {
+            const response = await fetch('https://api.notion.com/v1/pages', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${config.NOTION_API_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Notion-Version': '2022-06-28'
+                },
+                body: JSON.stringify(taskDetails)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add task to Notion');
+            }
+
+            const result = await response.json();
+            console.log('Task added to Notion successfully:', result);
+            alert(`Task for "${plantName}" has been added to your Notion database!`);
+        } catch (error) {
+            console.error('Error adding task to Notion:', error);
+            alert('Failed to add task. Please try again.');
+        }
     }
 
     // Separate function for showing paywall message to avoid repetition
