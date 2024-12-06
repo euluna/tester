@@ -1057,3 +1057,165 @@ h1 {
     transform: translateY(-2px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+/* Custom dropdown styles to match other form elements */
+.custom-select {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    font-family: inherit;
+}
+
+.select-header {
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    color: #333;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    border: 3px solid rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    background-color: rgba(255, 248, 225, 0.8);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.select-header:hover {
+    border-color: rgba(0, 0, 0, 0.399);
+}
+
+.custom-select.open .select-header {
+    border-color: rgba(0, 0, 0, 0.399);
+    border-radius: 8px 8px 0 0;
+}
+
+.select-arrow {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    margin-right: 5px;
+}
+
+.custom-select.open .select-arrow {
+    transform: rotate(-135deg);
+    margin-bottom: -5px;
+}
+
+.select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid rgba(0, 0, 0, 0.399);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.custom-select.open .select-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.option {
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #333;
+    position: relative;  /* Added for ghost text positioning */
+}
+
+.option::after {
+    content: attr(data-description);  /* Gets the description from data-description attribute */
+    position: absolute;
+    right: 15px;
+    color: #999;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.option:hover::after {
+    opacity: 1;
+}
+
+/* Adjust the option padding to make room for ghost text */
+.option:hover {
+    background-color: #f5f5f5;
+    /* color: #4CAF50; */
+    padding-left: 20px;
+    padding-right: 150px;  /* Make room for ghost text */
+}
+
+/* Scrollbar styling for the dropdown */
+.select-options::-webkit-scrollbar {
+    width: 8px;
+}
+
+.select-options::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0 0 8px 0;
+}
+
+.select-options::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 4px;
+}
+
+.select-options::-webkit-scrollbar-thumb:hover {
+    background: #45a049;
+}
+
+/* Placeholder style */
+.selected-option {
+    color: #666;
+}
+
+/* Style when an option is selected */
+.custom-select.has-value .selected-option {
+    color: #333;
+}
+
+.contact-form button[type="submit"] {
+    width: 25%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.contact-form button[type="submit"]:hover {
+    border-color: #4CAF50;
+    background-color: #4CAF50;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

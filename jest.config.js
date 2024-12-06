@@ -1,12 +1,22 @@
 module.exports = {
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/test/setup/jest.setup.js'],
-  testMatch: [
-    "**/__tests__/**/*.js",
-    "**/?(*.)+(spec|test).js"
-  ],
-  moduleNameMapper: {
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
-  }
-}; 
+  rootDir: '.',
+  testEnvironment: 'node',
+  setupFilesAfterEnv: ['<rootDir>/test/jest.setup.js'],
+  projects: [
+    {
+      displayName: 'unit',
+      testMatch: ['<rootDir>/test/unit/**/*.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/test/setup/jest.setup.js']
+    },
+    {
+      displayName: 'integration',
+      testMatch: ['<rootDir>/test/integration/**/*.integration.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/test/setup/integration.setup.js']
+    },
+    {
+      displayName: 'e2e',
+      testMatch: ['<rootDir>/test/e2e/**/*.e2e.test.js'],
+      setupFilesAfterEnv: ['<rootDir>/test/setup/e2e.setup.js']
+    }
+  ]
+};

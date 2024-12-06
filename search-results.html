@@ -56,13 +56,10 @@
         </div>
     </form>
 
-    <div class="results-count">
-        <script>
-            document.write(`${results.total} results for "${searchQuery}"`);
-        </script>
-    </div>
+    <div class="results-count"></div>
     <div class="search-results"></div>
-
+    <script src="env.js"></script>
+    <script src="config.js" type="module"></script>
     <script>
         async function searchPlants(query) {
             try {
@@ -138,7 +135,11 @@
             if (query) {
                 document.getElementById('searchInput').value = query;
                 const results = await searchPlants(query);
-                displayResults(results);
+                if (results) {
+                    document.querySelector('.results-count').textContent = 
+                        `${results.total} results for "${query}"`;
+                    displayResults(results);
+                }
             }
         });
 

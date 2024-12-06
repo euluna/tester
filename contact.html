@@ -53,12 +53,18 @@
         <h1>Contact us</h1>
         <form class="contact-form" id="contactForm" action="https://formspree.io/f/movqkayn" method="POST">
             <input type="email" name="email" id="emailInput" placeholder="Email address" required>
-            <select name="category" id="categoryInput" required>
-                <option value="">Select purpose</option>
-                <option value="support">Technical Support</option>
-                <option value="feedback">Feedback</option>
-                <option value="other">Other</option>
-            </select>
+            <div class="custom-select">
+                <div class="select-header" id="categoryHeader">
+                    <span class="selected-option">Select purpose</span>
+                    <div class="select-arrow"></div>
+                </div>
+                <div class="select-options">
+                    <div class="option" data-value="support" data-description="Get help with technical issues">Technical Support</div>
+                    <div class="option" data-value="feedback" data-description="Share your thoughts">Feedback</div>
+                    <div class="option" data-value="other" data-description="Other inquiries">Other</div>
+                </div>
+                <input type="hidden" name="category" id="categoryInput" required>
+            </div>
             <textarea name="message" id="messageInput" placeholder="Enter message" required></textarea>
             <button type="submit">Submit</button>
         </form>
@@ -71,7 +77,8 @@
             </div>
         </div>
     </main>
-
+    <script src="env.js"></script>
+    <script src="config.js" type="module"></script>
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -108,6 +115,54 @@
                 popup.style.display = 'none';
             }
         }
+
+        // Custom dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const customSelect = document.querySelector('.custom-select');
+            const header = customSelect.querySelector('.select-header');
+            const selectedText = customSelect.querySelector('.selected-option');
+            const options = customSelect.querySelectorAll('.option');
+            const hiddenInput = document.getElementById('categoryInput');
+            let originalText = selectedText.textContent; // Store original text
+
+            header.addEventListener('click', () => {
+                customSelect.classList.toggle('open');
+            });
+
+            options.forEach(option => {
+                // Add hover effect without color change
+                option.addEventListener('mouseenter', () => {
+                    selectedText.textContent = option.textContent;
+                });
+
+                // Reset text when mouse leaves
+                option.addEventListener('mouseleave', () => {
+                    if (!hiddenInput.value) { // Only reset if no option is selected
+                        selectedText.textContent = originalText;
+                    } else {
+                        selectedText.textContent = customSelect.querySelector('.option.selected').textContent;
+                    }
+                });
+
+                option.addEventListener('click', () => {
+                    selectedText.textContent = option.textContent;
+                    hiddenInput.value = option.dataset.value;
+                    customSelect.classList.remove('open');
+                    
+                    // Remove selected class from all options
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!customSelect.contains(e.target)) {
+                    customSelect.classList.remove('open');
+                }
+            });
+        });
     </script>
 </body>
 </html> 

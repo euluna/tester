@@ -1,16 +1,23 @@
-# Step 1: Set up a simple HTTP server
-FROM node:16 AS builder
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install
+# Use Node.js LTS (Long Term Support) version
+FROM node:18-alpine
 
+# Create app directory
+WORKDIR /usr/src/app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy all source files
 COPY . .
-RUN yarn build  # Optional if you have build scripts
 
-# Step 2: Serve the files using a basic HTTP server (e.g., http-server)
-FROM node:16
-WORKDIR /usr/share/nginx/html
-COPY --from=builder /app .
+# Set environment variables (if needed)
+ENV NODE_ENV=production
 
-EXPOSE 8080
-CMD ["npx", "http-server", "-p", "8080"]
+# Expose the port your app runs on
+EXPOSE 5500
+
+# Command to run the application
+CMD ["npm", "start"]
