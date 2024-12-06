@@ -69,11 +69,6 @@ a {
     color: #2e7d32;
 }
 
-.nav-right {
-    display: flex;
-    gap: 10px;
-}
-
 main {
     max-width: 800px;
     margin: 0 auto;
@@ -85,6 +80,7 @@ h1 {
     text-align: center;
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
+    font-family: Poppins, sans-serif;
 }
 
 .search-container {
@@ -104,6 +100,7 @@ h1 {
     background-color: rgba(255, 248, 225, 0.8);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
+    z-index: 2;
 }
 
 .search-icon {
@@ -369,6 +366,7 @@ h1 {
     font-size: min(3.5rem, 10vw);
     white-space: nowrap;
     margin: 0;  /* Remove margins */
+    font-family: Poppins, sans-serif;
 }
 
 .plant-of-day-box {
@@ -414,6 +412,7 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    font-family: Poppins, sans-serif;
 }
 
 /* About container */
@@ -434,6 +433,7 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    font-family: Poppins, sans-serif;
 }
 
 /* About text styling */
@@ -543,6 +543,15 @@ h1 {
 @media (max-width: 768px) {
     .search-results {
         width: 90%;
+    }
+    .tooltip {
+        display: block; /* Override any display: none */
+        font-size: 0.8rem; /* Slightly smaller font on mobile */
+        padding: 6px 10px; /* Slightly smaller padding */
+    }
+    
+    .search-container .tooltip {
+        right: -50%; /* Keep consistent positioning */
     }
 }
 
@@ -946,7 +955,7 @@ h1 {
     
     /* Change position to below */
     position: absolute;
-    z-index: 1;
+    z-index: 1000;
     top: 125%;  /* Changed from bottom to top */
     left: 50%;
     transform: translateX(-50%);
@@ -976,6 +985,7 @@ h1 {
 /* Fix search icon and tooltip alignment */
 .search-container {
     position: relative;
+    z-index: 1;
 }
 
 .search-container .nav-item {
@@ -1001,6 +1011,7 @@ h1 {
     right: 0;  /* Align with the right edge */
     /* transform: translateX(50%); */
     width: max-content;
+    z-index: 1001;
 }
 
 .search-container .tooltip::after {

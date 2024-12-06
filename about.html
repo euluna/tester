@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Houseplant Assistant</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="config.js"></script>
 </head>
@@ -91,7 +92,28 @@
                 const tooltip = link.querySelector('.tooltip');
                 if (tooltip) {
                     tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                    tooltip.style.display = 'block';  // Force display
+                    tooltip.style.backgroundColor = '#fff3cd';
+                    tooltip.style.color = '#856404';
+                    tooltip.style.border = '1px solid #ffeeba';
                 }
+                
+                // Create and show the API limit message
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'api-limit-message';
+                messageDiv.innerHTML = '<p>Unfortunately, we have reached the limit of accessing the plants\' database. Please try again tomorrow.</p>';
+                document.querySelector('main').appendChild(messageDiv);
+                messageDiv.style.display = 'none';
+                
+                // Add click handler to show message
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    messageDiv.style.display = 'block';
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 3000);
+                });
+                
                 return false;
             }
             
@@ -105,6 +127,10 @@
             const tooltip = link.querySelector('.tooltip');
             if (tooltip) {
                 tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                tooltip.style.display = 'block';  // Force display
+                tooltip.style.backgroundColor = '#fff3cd';
+                tooltip.style.color = '#856404';
+                tooltip.style.border = '1px solid #ffeeba';
             }
             return false;
         }

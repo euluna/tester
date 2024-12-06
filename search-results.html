@@ -207,6 +207,66 @@
                 window.location.href = `search-results.html?q=${encodeURIComponent(searchTerm)}`;
             }
         });
+
+        async function checkAPILimit(event, link) {
+            try {
+                const response = await fetch(`https://perenual.com/api/species/details/${config.PLANT_OF_DAY_ID}?key=${config.API_KEY}`);
+                const data = await response.json();
+                
+                if (data.message && (
+                    data.message.includes("Please Upgrade Plan") || 
+                    data.message.includes("Sorry") ||
+                    data.message.includes("subscription")
+                )) {
+                    event.preventDefault();
+                    link.classList.add('premium-plant');
+                    link.style.pointerEvents = 'none';
+                    const tooltip = link.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                        tooltip.style.display = 'block';  // Force display
+                        tooltip.style.backgroundColor = '#fff3cd';
+                        tooltip.style.color = '#856404';
+                        tooltip.style.border = '1px solid #ffeeba';
+                    }
+                    
+                    // Create and show the API limit message
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'api-limit-message';
+                    messageDiv.innerHTML = '<p>Unfortunately, we have reached the limit of accessing the plants\' database. Please try again tomorrow.</p>';
+                    document.querySelector('main').appendChild(messageDiv);
+                    messageDiv.style.display = 'none';
+                    
+                    // Add click handler to show message
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        messageDiv.style.display = 'block';
+                        setTimeout(() => {
+                            messageDiv.style.display = 'none';
+                        }, 3000);
+                    });
+                    
+                    return false;
+                }
+                
+                link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
+                return true;
+            } catch (error) {
+                console.error('Error checking API limit:', error);
+                event.preventDefault();
+                link.classList.add('premium-plant');
+                link.style.pointerEvents = 'none';
+                const tooltip = link.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                    tooltip.style.display = 'block';  // Force display
+                    tooltip.style.backgroundColor = '#fff3cd';
+                    tooltip.style.color = '#856404';
+                    tooltip.style.border = '1px solid #ffeeba';
+                }
+                return false;
+            }
+        }
     </script>
 </body>
 </html> 
