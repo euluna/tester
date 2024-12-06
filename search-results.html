@@ -10,32 +10,50 @@
 <body>
     <nav>
         <div class="nav-left">
-            <a href="javascript:void(0)" onclick="window.history.back()">
-                <img src="images/back.png" alt="Back" class="nav-icon">
-            </a>
-            <a href="index.html">
-                <img src="images/homebutton.png" alt="Home" class="nav-icon">
-            </a>
+            <div class="nav-item">
+                <a href="javascript:void(0)" onclick="window.history.back()">
+                    <img src="images/back.png" alt="Back" class="nav-icon">
+                    <span class="tooltip">Go back to previous page</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="index.html">
+                    <img src="images/homebutton.png" alt="Home" class="nav-icon">
+                    <span class="tooltip">Return to home page</span>
+                </a>
+            </div>
         </div>
         <div class="nav-right">
-            <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
-                <span class="nav-text">Plant of the day</span>
-                <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
-            </a>
-            <a href="contact.html">
-                <span class="nav-text">Contact us</span>
-                <img src="images/contact.png" alt="Contact" class="nav-icon-only">
-            </a>
-            <a href="about.html">
-                <span class="nav-text">About us</span>
-                <img src="images/about.png" alt="About" class="nav-icon-only">
-            </a>
+            <div class="nav-item">
+                <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
+                    <span class="nav-text">Plant of the day</span>
+                    <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
+                    <span class="tooltip">View today's featured plant</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="contact.html">
+                    <span class="nav-text">Contact us</span>
+                    <img src="images/contact.png" alt="Contact" class="nav-icon-only">
+                    <span class="tooltip">Contact our team</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="about.html">
+                    <span class="nav-text">About us</span>
+                    <img src="images/about.png" alt="About" class="nav-icon-only">
+                    <span class="tooltip">Learn about our team</span>
+                </a>
+            </div>
         </div>
     </nav>
 
     <form id="searchForm" class="search-container">
         <input type="text" placeholder="Search for a houseplant" id="searchInput">
-        <img src="images/search.png" alt="Search" class="search-icon">
+        <div class="nav-item">
+            <img src="images/search.png" alt="Search" class="search-icon">
+            <span class="tooltip">Click to search</span>
+        </div>
     </form>
 
     <div class="results-count">
@@ -63,19 +81,27 @@
             });
         }
 
-        function displayResults(results) {
-            const resultsCount = document.querySelector('.results-count');
-            resultsCount.textContent = `${results.data.length} results for "${document.getElementById('searchInput').value}"`;
-            
+        async function displayResults(results) {
             const resultsContainer = document.querySelector('.search-results');
             resultsContainer.innerHTML = '';
             
-            results.data.forEach(plant => {
+            for (const plant of results.data) {
                 const properName = toProperCase(plant.common_name);
                 const imageSrc = plant.default_image?.thumbnail || plant.default_image?.regular_url || plant.default_image?.original_url || 'images/plantplaceholder.png';
                 
+                // Check if the plant details are actually available
+                let isPremium = false;
+                try {
+                    const detailResponse = await fetch(`https://perenual.com/api/species/details/${plant.id}?key=${config.API_KEY}`);
+                    const detailData = await detailResponse.json();
+                    isPremium = detailData.message === "Please Upgrade Plan - https://perenual.com/subscription-api-pricing. Sorry";
+                } catch (error) {
+                    console.error('Error checking plant details:', error);
+                    isPremium = true; // Assume premium if we can't check
+                }
+                
                 const div = document.createElement('div');
-                div.className = 'plant-result';
+                div.className = 'plant-result' + (isPremium ? ' premium-plant' : '');
                 div.innerHTML = `
                     <img src="${imageSrc}" 
                          alt="${properName}"
@@ -83,13 +109,27 @@
                     <div class="plant-info">
                         <h2>${properName}</h2>
                         <p>${plant.scientific_name}</p>
+                        ${isPremium ? '<span class="premium-badge">Premium Content</span>' : ''}
                     </div>
                 `;
+                
+                if (isPremium) {
+                    div.title = "This plant requires premium API access";
+                }
+                
                 div.onclick = () => {
-                    window.location.href = `plant-info.html?id=${plant.id}`;
+                    if (isPremium) {
+                        showPremiumNotice(properName);
+                    } else {
+                        window.location.href = `plant-info.html?id=${plant.id}`;
+                    }
                 };
                 resultsContainer.appendChild(div);
-            });
+            }
+        }
+
+        function showPremiumNotice(plantName) {
+            alert(`${plantName} details are only available with premium API access. Try searching for a different plant!`);
         }
 
         window.addEventListener('load', async () => {

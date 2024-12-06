@@ -88,19 +88,19 @@ h1 {
 }
 
 .search-container {
-    min-width: 300px;
-    width: 75%;
-    max-width: 800px;
-    margin: 1rem auto;
+    min-width: 400px;
+    width: 85%;
+    max-width: 1000px;
     position: relative;
+    margin: 0 auto;
 }
 
 .search-container input {
     width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 1.2rem;
+    padding: 1.5rem 2rem;
+    font-size: 1.4rem;
     border: 3px solid rgba(0, 0, 0, 0.15);
-    border-radius: 25px;
+    border-radius: 35px;
     background-color: rgba(255, 248, 225, 0.8);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
@@ -108,11 +108,11 @@ h1 {
 
 .search-icon {
     position: absolute;
-    right: 1.5rem;
+    right: 2rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
 }
 
@@ -351,36 +351,37 @@ h1 {
 /* Add these new styles */
 .centered-content {
     text-align: center;
-    padding-top: 2rem;
-    max-width: 800px;
+    min-height: 100vh;  /* Take full viewport height */
+    max-width: 1000px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Center vertically */
+    align-items: center;
+    padding: 2rem;  /* Even padding all around */
+    gap: 4rem;  /* Increased spacing between elements */
+    margin-top: -5vh;  /* Move everything up slightly */
 }
 
 .centered-content h1 {
     color: #2d7a32;
     text-align: center;
-    font-size: min(2.5rem, 8vw);  /* Responsive font size */
-    margin-bottom: 2rem;
-    white-space: nowrap;  /* Prevent wrapping */
+    font-size: min(3.5rem, 10vw);
+    white-space: nowrap;
+    margin: 0;  /* Remove margins */
 }
 
 .plant-of-day-box {
     background-color: white;
-    border-radius: 8px;
-    padding: 0.6rem;
-    margin: 0 auto;
-    margin-top: 2rem;
-    width: 310px;
-    min-width: 150px;
-    max-width: 35vw;
+    border-radius: 12px;
+    padding: 1.2rem;
+    width: 400px;
+    min-width: 200px;
+    max-width: 45vw;
     text-align: center;
+    margin: 0 auto;  /* Center horizontally */
+    position: relative;  /* Ensure relative positioning */
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
 }
 
 .plant-of-day-box:hover {
@@ -390,17 +391,17 @@ h1 {
 }
 
 .plant-of-day-box p {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     color: #4CAF50;
     font-weight: bold;
     margin: 0;
 }
 
 .plant-of-day-box img {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 .search-container input:focus {
@@ -612,6 +613,12 @@ h1 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
+}
+
+.add-to-tasks:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 .plant-name {
@@ -903,4 +910,150 @@ h1 {
     .plant-info p {
         font-size: 0.8rem;  /* Smaller font for scientific name */
     }
+}
+
+/* Updated media queries */
+@media (max-width: 768px) {
+    .centered-content {
+        padding: 1rem;
+        gap: 2rem;
+        margin-top: -3vh;  /* Slightly less adjustment for mobile */
+    }
+
+    .search-container {
+        min-width: unset;
+        width: 90%;
+    }
+
+    .plant-of-day-box {
+        width: 90%;
+        max-width: none;
+    }
+}
+
+/* Add these new tooltip styles */
+.nav-item {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    
+    /* Change position to below */
+    position: absolute;
+    z-index: 1;
+    top: 125%;  /* Changed from bottom to top */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Animation */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.nav-item:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Update arrow to point upward */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;  /* Changed from top to bottom */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;  /* Reversed colors */
+}
+
+/* Fix search icon and tooltip alignment */
+.search-container {
+    position: relative;
+}
+
+.search-container .nav-item {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+}
+
+.search-icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    right: 0;
+}
+
+.search-container .tooltip {
+    white-space: nowrap;
+    position: absolute;
+    top: 125%;
+    right: 0;  /* Align with the right edge */
+    /* transform: translateX(50%); */
+    width: max-content;
+}
+
+.search-container .tooltip::after {
+    position: absolute;
+    bottom: 100%;
+    right: 50%;
+    transform: translateX(50%);
+    margin-left: -5px;
+}
+
+/* Add specific styling for plant-of-day-box tooltip */
+.plant-of-day-box {
+    position: relative;  /* Ensure relative positioning */
+    cursor: pointer;
+}
+
+.plant-of-day-box .tooltip {
+    position: absolute;
+    top: calc(100% + 5px);  /* Position right below the box with small gap */
+    left: 50%;
+    white-space: nowrap;
+    z-index: 100;  /* Ensure tooltip appears above other elements */
+}
+
+.plant-of-day-box .tooltip::after {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;  /* Remove any margin that might affect centering */
+}
+
+.premium-plant {
+    opacity: 0.8;
+    position: relative;
+    background-color: rgba(255, 248, 225, 0.5) !important;
+    cursor: not-allowed;
+}
+
+.premium-badge {
+    background-color: #FFD700;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.back-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }

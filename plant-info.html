@@ -11,26 +11,41 @@
 <body>
     <nav>
         <div class="nav-left">
-            <a href="javascript:void(0)" onclick="window.history.back()">
-                <img src="images/back.png" alt="Back" class="nav-icon">
-            </a>
-            <a href="index.html">
-                <img src="images/homebutton.png" alt="Home" class="nav-icon">
-            </a>
+            <div class="nav-item">
+                <a href="javascript:void(0)" onclick="window.history.back()">
+                    <img src="images/back.png" alt="Back" class="nav-icon">
+                    <span class="tooltip">Go back to previous page</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="index.html">
+                    <img src="images/homebutton.png" alt="Home" class="nav-icon">
+                    <span class="tooltip">Return to home page</span>
+                </a>
+            </div>
         </div>
         <div class="nav-right">
-            <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
-                <span class="nav-text">Plant of the day</span>
-                <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
-            </a>
-            <a href="contact.html">
-                <span class="nav-text">Contact us</span>
-                <img src="images/contact.png" alt="Contact" class="nav-icon-only">
-            </a>
-            <a href="about.html">
-                <span class="nav-text">About us</span>
-                <img src="images/about.png" alt="About" class="nav-icon-only">
-            </a>
+            <div class="nav-item">
+                <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
+                    <span class="nav-text">Plant of the day</span>
+                    <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
+                    <span class="tooltip">View today's featured plant</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="contact.html">
+                    <span class="nav-text">Contact us</span>
+                    <img src="images/contact.png" alt="Contact" class="nav-icon-only">
+                    <span class="tooltip">Contact our team</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="about.html">
+                    <span class="nav-text">About us</span>
+                    <img src="images/about.png" alt="About" class="nav-icon-only">
+                    <span class="tooltip">Learn about our team</span>
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -83,7 +98,7 @@
                         <img src="${data.default_image?.regular_url || data.default_image?.original_url || 'images/plantplaceholder.png'}" 
                              alt="${data.common_name || 'Plant'}" 
                              onerror="this.src='images/plantplaceholder.png'">
-                        <button class="add-to-tasks" onclick="addToTasks(${data.id})">Add to my tasks</button>
+                        <button class="add-to-tasks" onclick="addToTasks(${data.id})">Add Tasks to Notion Calendar</button>
                     </div>
                     <div class="plant-details-section">
                         <h1>${data.common_name}</h1>
@@ -112,7 +127,7 @@
         console.log('Adding plant', plantId, 'to tasks');
     }
 
-    // Separate function for showing paywall message to avoid repetition
+    // Updated paywall message with better styling and clearer message
     function showPaywallMessage() {
         document.querySelector('.plant-details').innerHTML = `
             <div class="plant-container" style="min-height: 400px; display: flex; align-items: center; justify-content: center;">
