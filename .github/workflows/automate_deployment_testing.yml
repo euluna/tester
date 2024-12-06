@@ -1,0 +1,71 @@
+name: Automate Deployment and Testing
+# This workflow is a work in progress.
+on: 
+  push: 
+    branches:
+    - 'main'
+  pull_request: 
+    branches:
+    - 'main'
+  
+jobs:
+  tests:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    env:
+      PERENUAL_API_KEY: ${{ secrets.PERENUAL_API_KEY }}
+
+    steps:
+    # Continuous Integration Pipeline
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Build Docker Image
+      run: docker build -t my-app .
+
+    - name: Run Tests in Docker
+      run: docker run my-app npm test
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+    - name: Install Dependecies
+      run: npm ci
+    - name: Run Merge Tests
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'github-actions@github.com'
+        # Check if this is a PR
+        if [ ${{ github.event_name }} == 'pull_request' ]; then
+          # Fetch the target branch
+          git fetch origin ${{ github.base_ref }}
+          # Check for merge conflicts
+          git merge-tree $(git merge-base FETCH_HEAD ${{ github.sha }}) FETCH_HEAD ${{ github.sha }}
+        fi
+    - name: Merge pull request
+      if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+      uses: actions/github-script@v6
+      with:
+        script: |
+          await github.rest.pulls.merge({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number
+          })
+    # Continuous Delivery Pipeline
+    # Add unit tests to the Continuous Integration Pipeline
+    - name: Run Unit Tests
+      run: npm run test:unit
+    # Update Deploy Tests step to include all tests
+    - name: Run All Tests
+      run: |
+        npm run test:unit     # Run unit tests
+        npm run test:integration  # Run integration tests
+        npm run test:e2e      # Run end-to-end tests
+        npm run build         # Ensure the build succeeds
+    # Continuous Deployment Pipeline
+    - name: Deploy to Github Pages
+      run: echo "Here, we would deploy our app"
