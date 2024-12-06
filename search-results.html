@@ -58,16 +58,65 @@
 
     <div class="results-count"></div>
     <div class="search-results"></div>
+    <div id="apiLimitMessage" class="api-limit-message search-warning" style="display: none;">
+        <p><p>Unfortunately, we have reached the limit of accessing the plants' database. Please try again tomorrow.</p>
+    </div>
     <script src="env.js"></script>
     <script src="config.js" type="module"></script>
     <script>
         async function searchPlants(query) {
             try {
                 const response = await fetch(`https://perenual.com/api/species-list?key=${config.API_KEY}&q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                console.log('API Response:', data);
+                
+                if (data.message && (
+                    data.message.includes("Please Upgrade Plan") || 
+                    data.message.includes("Sorry") ||
+                    data.message.includes("subscription")
+                )) {
+                    // Disable the plant of the day link in nav bar
+                    const plantOfDayLink = document.querySelector('a[href*="plant-info.html?id=PLANT_ID"]');
+                    if (plantOfDayLink) {
+                        plantOfDayLink.classList.add('premium-plant');
+                        plantOfDayLink.style.pointerEvents = 'none';
+                        // Update the tooltip text
+                        const tooltip = plantOfDayLink.querySelector('.tooltip');
+                        if (tooltip) {
+                            tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                        }
+                    }
+
+                    const messageDiv = document.getElementById('apiLimitMessage');
+                    messageDiv.style.display = 'block';
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 3000);
+                    return null;
+                }
+
                 if (!response.ok) throw new Error('API request failed');
-                return await response.json();
+                return data;
             } catch (error) {
                 console.error('Error:', error);
+                // Also disable plant of the day link for error case
+                const plantOfDayLink = document.querySelector('a[href*="plant-info.html?id=PLANT_ID"]');
+                if (plantOfDayLink) {
+                    plantOfDayLink.classList.add('premium-plant');
+                    plantOfDayLink.style.pointerEvents = 'none';
+                    // Update the tooltip text
+                    const tooltip = plantOfDayLink.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                    }
+                }
+
+                const messageDiv = document.getElementById('apiLimitMessage');
+                messageDiv.style.display = 'block';
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
                 return null;
             }
         }

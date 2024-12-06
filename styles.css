@@ -372,22 +372,20 @@ h1 {
 }
 
 .plant-of-day-box {
-    background-color: white;
-    border-radius: 12px;
-    padding: 1.2rem;
-    width: 400px;
-    min-width: 200px;
-    max-width: 45vw;
-    text-align: center;
-    margin: 0 auto;  /* Center horizontally */
-    position: relative;  /* Ensure relative positioning */
+    position: relative;
+    transition: all 0.3s ease;
     cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .plant-of-day-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    border-color: rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .plant-of-day-box p {
@@ -1027,6 +1025,7 @@ h1 {
     z-index: 100;  /* Ensure tooltip appears above other elements */
 }
 
+
 .plant-of-day-box .tooltip::after {
     position: absolute;
     bottom: 100%;
@@ -1036,20 +1035,48 @@ h1 {
 }
 
 .premium-plant {
+    cursor: not-allowed !important;
     opacity: 0.8;
     position: relative;
     background-color: rgba(255, 248, 225, 0.5) !important;
-    cursor: not-allowed;
 }
 
 .premium-badge {
-    background-color: #FFD700;
-    color: #333;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    border: 1px solid #ffeeba;
+}
+
+.plant-of-day-box.premium-plant:hover {
+    cursor: not-allowed;
+    transform: none;
+}
+
+.plant-of-day-box.api-limit {
+    cursor: not-allowed !important;
+}
+
+/* Make sure these styles are not being overridden */
+.nav-item a.premium-plant {
+    cursor: not-allowed !important;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+/* Override any conflicting hover styles */
+.plant-of-day-box.premium-plant:hover,
+.plant-of-day-box.api-limit:hover {
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    background-color: rgba(255, 248, 225, 0.5) !important;
 }
 
 .back-button:hover {
@@ -1218,4 +1245,235 @@ h1 {
 .contact-form button[type="submit"]:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.api-limit-message {
+    position: fixed;  /* Changed from static to fixed */
+    top: 90%;        /* Position in the middle of the screen */
+    left: 50%;
+    transform: translate(-50%, -50%);  /* Center the message */
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 800px;
+    width: 90%;      /* Make it responsive */
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;   /* Make sure it appears above other content */
+}
+
+.api-limit-message p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.plant-of-day-box {
+    position: relative;
+    overflow: visible;
+}
+
+.plant-of-day-box.api-limit {
+    cursor: not-allowed;
+    opacity: 0.8;  /* Match premium content opacity */
+    background-color: rgba(255, 248, 225, 0.5) !important;  /* Match premium content background */
+}
+
+.plant-of-day-box.api-limit:hover {
+    background-color: rgba(255, 248, 225, 0.5);  /* Keep consistent with premium content */
+    transform: none;  /* Prevent the hover animation when API limit is reached */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  /* Keep the default shadow */
+}
+
+.warning-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 243, 205, 0.95);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #ffeeba;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 100;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.warning-overlay p {
+    margin: 0;
+    color: #856404;
+    font-size: 14px;
+}
+
+/* Premium content style for consistency */
+.plant-of-day-box.api-limit::before {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.plant-of-day-box.api-limit:hover::before {
+    opacity: 1;
+}
+
+/* Update the nav bar link style to match */
+.nav-item a.api-limit {
+    cursor: not-allowed;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.plant-of-day-box.premium-plant,
+.plant-of-day-box.api-limit {
+    cursor: not-allowed !important;
+    opacity: 0.8;
+    background-color: rgba(255, 248, 225, 0.5) !important;
+}
+
+.plant-of-day-box.premium-plant:hover,
+.plant-of-day-box.api-limit:hover {
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Update the nav bar link style to match */
+.nav-item a.premium-plant {
+    cursor: not-allowed !important;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.nav-item.plant-of-day-box {
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    text-align: center;
+}
+
+.nav-item.plant-of-day-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border-color: rgba(76, 175, 80, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Keep the disabled state styles */
+.nav-item.plant-of-day-box.premium-plant:hover,
+.nav-item.plant-of-day-box.api-limit:hover {
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    background-color: rgba(255, 248, 225, 0.5) !important;
+}
+
+/* Style for the image inside the box */
+.nav-item.plant-of-day-box img {
+    max-width: 200px;
+    height: auto;
+    margin: 10px 0;
+}
+
+/* Style for the text inside the box */
+.nav-item.plant-of-day-box p {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Add specific styling for the search page warning */
+.api-limit-message.search-warning {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px 30px;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.api-limit-message.search-warning p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+#apiLimitMessage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px 30px;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none; /* Hide by default */
+}
+
+#apiLimitMessage p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Hide tooltips by default when nav text is showing */
+.nav-item .tooltip {
+    display: none;
+}
+
+/* Only show tooltips when nav-text is hidden (icon-only mode) */
+@media screen and (max-width: 768px) {  /* or whatever breakpoint you're using for mobile */
+    .nav-text {
+        display: none;
+    }
+    
+    .nav-item .tooltip {
+        display: block;  /* Show tooltips when text is hidden */
+    }
+}
+
+/* Always show tooltips for items that are always icons */
+.nav-item .nav-icon + .tooltip,  /* For back and home buttons */
+.search-container .nav-item .tooltip {  /* For search icon */
+    display: block;
+}
+
+/* Style for disabled nav links */
+.nav-item a.premium-plant {
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
+
+.nav-item a.premium-plant .tooltip {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
 }

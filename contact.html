@@ -26,7 +26,7 @@
         </div>
         <div class="nav-right">
             <div class="nav-item">
-                <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
+                <a href="plant-info.html?id=PLANT_ID" onclick="return checkAPILimit(event, this)">
                     <span class="nav-text">Plant of the day</span>
                     <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
                     <span class="tooltip">View today's featured plant</span>
@@ -162,6 +162,49 @@
                     customSelect.classList.remove('open');
                 }
             });
+        });
+
+        async function checkAPILimit(event, link) {
+            try {
+                const response = await fetch(`https://perenual.com/api/species/details/${config.PLANT_OF_DAY_ID}?key=${config.API_KEY}`);
+                const data = await response.json();
+                
+                if (data.message && (
+                    data.message.includes("Please Upgrade Plan") || 
+                    data.message.includes("Sorry") ||
+                    data.message.includes("subscription")
+                )) {
+                    event.preventDefault();
+                    link.classList.add('premium-plant');
+                    link.style.pointerEvents = 'none';
+                    const tooltip = link.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                    }
+                    return false;
+                }
+                
+                link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
+                return true;
+            } catch (error) {
+                console.error('Error checking API limit:', error);
+                event.preventDefault();
+                link.classList.add('premium-plant');
+                link.style.pointerEvents = 'none';
+                const tooltip = link.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.textContent = 'API limit reached. Try again tomorrow.';
+                }
+                return false;
+            }
+        }
+
+        // Check API limit on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const plantOfDayLink = document.querySelector('a[href*="plant-info.html?id=PLANT_ID"]');
+            if (plantOfDayLink) {
+                await checkAPILimit({ preventDefault: () => {} }, plantOfDayLink);
+            }
         });
     </script>
 </body>
