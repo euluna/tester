@@ -1,6 +1,5 @@
-
 const config = {
-    API_KEY: 'sk-FtXT6745171be0b297774',
+    API_KEY: 'sk-hEti6736590623fd37640',
     PLANT_OF_DAY_ID: (() => {
         // Get current date in YYYYMMDD format
         const today = new Date();
@@ -26,5 +25,3 @@ const config = {
     GOOGLE_DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest',
     GOOGLE_SCOPES: 'https://www.googleapis.com/auth/tasks'
 };
-
-module.exports = config;
