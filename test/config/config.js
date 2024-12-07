@@ -1,5 +1,5 @@
 const config = {
-    API_KEY: 'sk-VEc667528c487e7ce7904',
+    API_KEY: 'sk-TekF67539eae8e0777602',
     FREE_PLANT_IDS: [
         1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
         // Add more verified free plant IDs here

@@ -85,3 +85,27 @@ jobs:
     # Continuous Deployment Pipeline
     - name: Deploy to Github Pages
       run: echo "Here, we would deploy our app"
+    - name: Monitor Deployment
+      run: |
+        # Check application health
+        curl http://your-app-url/health
+        
+        # Check error logs
+        if [ -f "error.log" ]; then
+          echo "Recent errors:"
+          tail error.log
+        fi
+        
+        # Monitor performance metrics
+        curl http://your-app-url/metrics
+    - name: Alert on Failure
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: 'Deployment Monitor Alert',
+            body: 'Deployment monitoring detected issues.'
+          })
