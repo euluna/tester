@@ -6,5 +6,4 @@ npm-debug.log
 .env.*
 *.md
 .DS_Store
-test
 coverage 

@@ -28,10 +28,22 @@ jobs:
 
     - name: Run Tests in Docker
       run: |
+        # Debug: List contents of current directory before docker build
+        echo "Current directory contents:"
+        ls -la
+        echo "Test directory contents:"
+        ls -la test/
+        
+        docker build -t my-app .
+        
+        # Debug: Check contents inside container
+        docker run my-app sh -c "ls -la /usr/src/app/ && echo 'Test dir:' && ls -la /usr/src/app/test/"
+        
+        # Run tests
         docker run \
           -e NODE_ENV=test \
           -e PERENUAL_API_KEY=${{ secrets.PERENUAL_API_KEY }} \
-          my-app sh -c "ls -la /usr/src/app/test/setup && npm run test:all"
+          my-app npm run test:all
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
