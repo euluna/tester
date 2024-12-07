@@ -69,6 +69,11 @@ a {
     color: #2e7d32;
 }
 
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
+
 main {
     max-width: 800px;
     margin: 0 auto;
@@ -80,36 +85,34 @@ h1 {
     text-align: center;
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
-    font-family: Poppins, sans-serif;
 }
 
 .search-container {
-    min-width: 400px;
-    width: 85%;
-    max-width: 1000px;
+    min-width: 300px;
+    width: 75%;
+    max-width: 800px;
+    margin: 1rem auto;
     position: relative;
-    margin: 0 auto;
 }
 
 .search-container input {
     width: 100%;
-    padding: 1.5rem 2rem;
-    font-size: 1.4rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
     border: 3px solid rgba(0, 0, 0, 0.15);
-    border-radius: 35px;
+    border-radius: 25px;
     background-color: rgba(255, 248, 225, 0.8);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
-    z-index: 2;
 }
 
 .search-icon {
     position: absolute;
-    right: 2rem;
+    right: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
 }
 
@@ -348,56 +351,56 @@ h1 {
 /* Add these new styles */
 .centered-content {
     text-align: center;
-    min-height: 100vh;  /* Take full viewport height */
-    max-width: 1000px;
+    padding-top: 2rem;
+    max-width: 800px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  /* Center vertically */
-    align-items: center;
-    padding: 2rem;  /* Even padding all around */
-    gap: 4rem;  /* Increased spacing between elements */
-    margin-top: -5vh;  /* Move everything up slightly */
 }
 
 .centered-content h1 {
     color: #2d7a32;
     text-align: center;
-    font-size: min(3.5rem, 10vw);
-    white-space: nowrap;
-    margin: 0;  /* Remove margins */
-    font-family: Poppins, sans-serif;
+    font-size: min(2.5rem, 8vw);  /* Responsive font size */
+    margin-bottom: 2rem;
+    white-space: nowrap;  /* Prevent wrapping */
 }
 
 .plant-of-day-box {
-    position: relative;
-    transition: all 0.3s ease;
+    background-color: white;
+    border-radius: 8px;
+    padding: 0.6rem;
+    margin: 0 auto;
+    margin-top: 2rem;
+    width: 310px;
+    min-width: 150px;
+    max-width: 35vw;
+    text-align: center;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 }
 
 .plant-of-day-box:hover {
-    transform: translateY(-5px);
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 .plant-of-day-box p {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     color: #4CAF50;
     font-weight: bold;
     margin: 0;
 }
 
 .plant-of-day-box img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .search-container input:focus {
@@ -412,7 +415,6 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    font-family: Poppins, sans-serif;
 }
 
 /* About container */
@@ -433,7 +435,6 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    font-family: Poppins, sans-serif;
 }
 
 /* About text styling */
@@ -544,15 +545,6 @@ h1 {
     .search-results {
         width: 90%;
     }
-    .tooltip {
-        display: block; /* Override any display: none */
-        font-size: 0.8rem; /* Slightly smaller font on mobile */
-        padding: 6px 10px; /* Slightly smaller padding */
-    }
-    
-    .search-container .tooltip {
-        right: -50%; /* Keep consistent positioning */
-    }
 }
 
 /* Individual plant result card */
@@ -620,12 +612,6 @@ h1 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-}
-
-.add-to-tasks:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-color: rgba(0, 0, 0, 0.2);
 }
 
 .plant-name {
@@ -917,574 +903,4 @@ h1 {
     .plant-info p {
         font-size: 0.8rem;  /* Smaller font for scientific name */
     }
-}
-
-/* Updated media queries */
-@media (max-width: 768px) {
-    .centered-content {
-        padding: 1rem;
-        gap: 2rem;
-        margin-top: -3vh;  /* Slightly less adjustment for mobile */
-    }
-
-    .search-container {
-        min-width: unset;
-        width: 90%;
-    }
-
-    .plant-of-day-box {
-        width: 90%;
-        max-width: none;
-    }
-}
-
-/* Add these new tooltip styles */
-.nav-item {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip {
-    visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    text-align: center;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    
-    /* Change position to below */
-    position: absolute;
-    z-index: 1000;
-    top: 125%;  /* Changed from bottom to top */
-    left: 50%;
-    transform: translateX(-50%);
-    
-    /* Animation */
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.nav-item:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* Update arrow to point upward */
-.tooltip::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;  /* Changed from top to bottom */
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;  /* Reversed colors */
-}
-
-/* Fix search icon and tooltip alignment */
-.search-container {
-    position: relative;
-    z-index: 1;
-}
-
-.search-container .nav-item {
-    position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
-}
-
-.search-icon {
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    right: 0;
-}
-
-.search-container .tooltip {
-    white-space: nowrap;
-    position: absolute;
-    top: 125%;
-    right: 0;  /* Align with the right edge */
-    /* transform: translateX(50%); */
-    width: max-content;
-    z-index: 1001;
-}
-
-.search-container .tooltip::after {
-    position: absolute;
-    bottom: 100%;
-    right: 50%;
-    transform: translateX(50%);
-    margin-left: -5px;
-}
-
-/* Add specific styling for plant-of-day-box tooltip */
-.plant-of-day-box {
-    position: relative;  /* Ensure relative positioning */
-    cursor: pointer;
-}
-
-.plant-of-day-box .tooltip {
-    position: absolute;
-    top: calc(100% + 5px);  /* Position right below the box with small gap */
-    left: 50%;
-    white-space: nowrap;
-    z-index: 100;  /* Ensure tooltip appears above other elements */
-}
-
-
-.plant-of-day-box .tooltip::after {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-left: 0;  /* Remove any margin that might affect centering */
-}
-
-.premium-plant {
-    cursor: not-allowed !important;
-    opacity: 0.8;
-    position: relative;
-    background-color: rgba(255, 248, 225, 0.5) !important;
-}
-
-.premium-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    border: 1px solid #ffeeba;
-}
-
-.plant-of-day-box.premium-plant:hover {
-    cursor: not-allowed;
-    transform: none;
-}
-
-.plant-of-day-box.api-limit {
-    cursor: not-allowed !important;
-}
-
-/* Make sure these styles are not being overridden */
-.nav-item a.premium-plant {
-    cursor: not-allowed !important;
-    opacity: 0.8;
-    pointer-events: none;
-}
-
-/* Override any conflicting hover styles */
-.plant-of-day-box.premium-plant:hover,
-.plant-of-day-box.api-limit:hover {
-    cursor: not-allowed !important;
-    transform: none !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-    border-color: rgba(0, 0, 0, 0.1) !important;
-    background-color: rgba(255, 248, 225, 0.5) !important;
-}
-
-.back-button:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* Custom dropdown styles to match other form elements */
-.custom-select {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-    font-family: inherit;
-}
-
-.select-header {
-    padding: 15px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    transition: all 0.3s ease;
-    font-size: 16px;
-    color: #333;
-    margin-top: 1rem;
-    padding: 1rem 1.5rem;
-    font-size: 1.2rem;
-    border: 3px solid rgba(0, 0, 0, 0.15);
-    border-radius: 25px;
-    background-color: rgba(255, 248, 225, 0.8);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.select-header:hover {
-    border-color: rgba(0, 0, 0, 0.399);
-}
-
-.custom-select.open .select-header {
-    border-color: rgba(0, 0, 0, 0.399);
-    border-radius: 8px 8px 0 0;
-}
-
-.select-arrow {
-    width: 10px;
-    height: 10px;
-    border-right: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-    transform: rotate(45deg);
-    transition: transform 0.3s ease;
-    margin-right: 5px;
-}
-
-.custom-select.open .select-arrow {
-    transform: rotate(-135deg);
-    margin-bottom: -5px;
-}
-
-.select-options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 2px solid rgba(0, 0, 0, 0.399);
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 100;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.custom-select.open .select-options {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.option {
-    padding: 15px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #333;
-    position: relative;  /* Added for ghost text positioning */
-}
-
-.option::after {
-    content: attr(data-description);  /* Gets the description from data-description attribute */
-    position: absolute;
-    right: 15px;
-    color: #999;
-    font-size: 14px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.option:hover::after {
-    opacity: 1;
-}
-
-/* Adjust the option padding to make room for ghost text */
-.option:hover {
-    background-color: #f5f5f5;
-    /* color: #4CAF50; */
-    padding-left: 20px;
-    padding-right: 150px;  /* Make room for ghost text */
-}
-
-/* Scrollbar styling for the dropdown */
-.select-options::-webkit-scrollbar {
-    width: 8px;
-}
-
-.select-options::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 0 0 8px 0;
-}
-
-.select-options::-webkit-scrollbar-thumb {
-    background: #4CAF50;
-    border-radius: 4px;
-}
-
-.select-options::-webkit-scrollbar-thumb:hover {
-    background: #45a049;
-}
-
-/* Placeholder style */
-.selected-option {
-    color: #666;
-}
-
-/* Style when an option is selected */
-.custom-select.has-value .selected-option {
-    color: #333;
-}
-
-.contact-form button[type="submit"] {
-    width: 25%;
-    padding: 15px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: white;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-}
-
-.contact-form button[type="submit"]:hover {
-    border-color: #4CAF50;
-    background-color: #4CAF50;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.contact-form button[type="submit"]:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.api-limit-message {
-    position: fixed;  /* Changed from static to fixed */
-    top: 90%;        /* Position in the middle of the screen */
-    left: 50%;
-    transform: translate(-50%, -50%);  /* Center the message */
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 15px;
-    border: 1px solid #ffeeba;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 800px;
-    width: 90%;      /* Make it responsive */
-    font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 1000;   /* Make sure it appears above other content */
-}
-
-.api-limit-message p {
-    margin: 0;
-    line-height: 1.4;
-}
-
-.plant-of-day-box {
-    position: relative;
-    overflow: visible;
-}
-
-.plant-of-day-box.api-limit {
-    cursor: not-allowed;
-    opacity: 0.8;  /* Match premium content opacity */
-    background-color: rgba(255, 248, 225, 0.5) !important;  /* Match premium content background */
-}
-
-.plant-of-day-box.api-limit:hover {
-    background-color: rgba(255, 248, 225, 0.5);  /* Keep consistent with premium content */
-    transform: none;  /* Prevent the hover animation when API limit is reached */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  /* Keep the default shadow */
-}
-
-.warning-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 243, 205, 0.95);
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid #ffeeba;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 100;
-    text-align: center;
-    white-space: nowrap;
-}
-
-.warning-overlay p {
-    margin: 0;
-    color: #856404;
-    font-size: 14px;
-}
-
-/* Premium content style for consistency */
-.plant-of-day-box.api-limit::before {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.plant-of-day-box.api-limit:hover::before {
-    opacity: 1;
-}
-
-/* Update the nav bar link style to match */
-.nav-item a.api-limit {
-    cursor: not-allowed;
-    opacity: 0.8;
-    pointer-events: none;
-}
-
-.plant-of-day-box.premium-plant,
-.plant-of-day-box.api-limit {
-    cursor: not-allowed !important;
-    opacity: 0.8;
-    background-color: rgba(255, 248, 225, 0.5) !important;
-}
-
-.plant-of-day-box.premium-plant:hover,
-.plant-of-day-box.api-limit:hover {
-    cursor: not-allowed !important;
-    transform: none !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Update the nav bar link style to match */
-.nav-item a.premium-plant {
-    cursor: not-allowed !important;
-    opacity: 0.8;
-    pointer-events: none;
-}
-
-.nav-item.plant-of-day-box {
-    position: relative;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    text-align: center;
-}
-
-.nav-item.plant-of-day-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    border-color: rgba(76, 175, 80, 0.5);
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* Keep the disabled state styles */
-.nav-item.plant-of-day-box.premium-plant:hover,
-.nav-item.plant-of-day-box.api-limit:hover {
-    cursor: not-allowed !important;
-    transform: none !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-    border-color: rgba(0, 0, 0, 0.1) !important;
-    background-color: rgba(255, 248, 225, 0.5) !important;
-}
-
-/* Style for the image inside the box */
-.nav-item.plant-of-day-box img {
-    max-width: 200px;
-    height: auto;
-    margin: 10px 0;
-}
-
-/* Style for the text inside the box */
-.nav-item.plant-of-day-box p {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
-}
-
-/* Add specific styling for the search page warning */
-.api-limit-message.search-warning {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 15px 30px;
-    border: 1px solid #ffeeba;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 800px;
-    width: 90%;
-    font-size: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.api-limit-message.search-warning p {
-    margin: 0;
-    line-height: 1.4;
-}
-
-#apiLimitMessage {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 15px 30px;
-    border: 1px solid #ffeeba;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 800px;
-    width: 90%;
-    font-size: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: none; /* Hide by default */
-}
-
-#apiLimitMessage p {
-    margin: 0;
-    line-height: 1.4;
-}
-
-/* Hide tooltips by default when nav text is showing */
-.nav-item .tooltip {
-    display: none;
-}
-
-/* Only show tooltips when nav-text is hidden (icon-only mode) */
-@media screen and (max-width: 768px) {  /* or whatever breakpoint you're using for mobile */
-    .nav-text {
-        display: none;
-    }
-    
-    .nav-item .tooltip {
-        display: block;  /* Show tooltips when text is hidden */
-    }
-}
-
-/* Always show tooltips for items that are always icons */
-.nav-item .nav-icon + .tooltip,  /* For back and home buttons */
-.search-container .nav-item .tooltip {  /* For search icon */
-    display: block;
-}
-
-/* Style for disabled nav links */
-.nav-item a.premium-plant {
-    cursor: not-allowed !important;
-    opacity: 0.7;
-}
-
-.nav-item a.premium-plant .tooltip {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
 }
