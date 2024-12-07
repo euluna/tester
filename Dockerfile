@@ -4,7 +4,7 @@ FROM node:18-alpine
 # Create app directory
 WORKDIR /usr/src/app
 
-# Copy package files
+# Copy package files and config first
 COPY package*.json ./
 COPY jest.config.js ./
 
@@ -12,19 +12,11 @@ COPY jest.config.js ./
 RUN npm ci
 RUN npm install -g jest
 
-# Create test directory structure
-RUN mkdir -p test/setup test/unit test/integration test/e2e
-
-# Copy test setup files first
-COPY test/setup ./test/setup/
-COPY test/unit ./test/unit/
-COPY test/integration ./test/integration/
-COPY test/e2e ./test/e2e/
-
-# Copy remaining source files
+# Copy all source files
+# This includes test directories and all other files
 COPY . .
 
-# Set environment variables (if needed)
+# Set environment variables
 ENV NODE_ENV=test
 ENV PORT=5500
 
