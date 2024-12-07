@@ -4,10 +4,10 @@
   "description": "A description of your project",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --config=jest.config.js",
     "test:unit": "jest --testMatch='<rootDir>/test/unit/**/*.test.js'",
     "test:integration": "jest --testMatch='<rootDir>/test/integration/**/*.integration.test.js'",
-    "test:e2e": "NODE_OPTIONS='--max-old-space-size=4096' jest --config=jest.config.js --testMatch='**/test/e2e/**/*.test.js' --runInBand --detectOpenHandles --forceExit",
+    "test:e2e": "NODE_OPTIONS='--max-old-space-size=4096' jest --config=jest.config.js --testMatch='**/test/e2e/**/*.test.js' --runInBand",
     "test:all": "NODE_OPTIONS='--max-old-space-size=8192 --trace-warnings' jest --config=jest.config.js --runInBand --verbose --detectOpenHandles --forceExit",
     "test:debug": "NODE_OPTIONS='--max-old-space-size=8192 --trace-warnings' jest --config=jest.config.js --runInBand --verbose --detectOpenHandles --forceExit --testNamePattern='YOUR_TEST_PATTERN'",
     "start": "node app.js"

@@ -9,6 +9,7 @@ COPY package*.json ./
 
 # Install ALL dependencies (including dev dependencies for testing)
 RUN npm ci
+RUN npm install -g jest
 
 # Copy all source files
 COPY . .
