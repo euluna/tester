@@ -130,27 +130,33 @@
                 
                 const taskListId = taskList.result.items[0].id;
 
-                // Calculate due date
-                const dueDate = new Date();
-                dueDate.setDate(dueDate.getDate() + intervalDays);
+                // Calculate how many waterings needed in the next 30 days
+                const wateringsInMonth = Math.floor(30 / intervalDays);
                 
-                // Format date as RFC 3339 timestamp
-                const formattedDate = dueDate.toISOString();
+                // Create tasks for each watering needed in the next month
+                for (let i = 1; i <= wateringsInMonth; i++) {
+                    // Calculate due date for each task
+                    const dueDate = new Date();
+                    dueDate.setDate(dueDate.getDate() + (intervalDays * i));
+                    
+                    // Format date as RFC 3339 timestamp
+                    const formattedDate = dueDate.toISOString();
 
-                // Create the task
-                const task = await gapi.client.tasks.tasks.insert({
-                    tasklist: taskListId,
-                    resource: {
-                        title: `Water ${plantName}`,
-                        due: formattedDate,
-                        notes: `Water your ${plantName} plant`
-                    }
-                });
+                    // Create the task
+                    await gapi.client.tasks.tasks.insert({
+                        tasklist: taskListId,
+                        resource: {
+                            title: `Water ${plantName}`,
+                            due: formattedDate,
+                            notes: `Water your ${plantName} plant\nWatering schedule: Every ${intervalDays} days`
+                        }
+                    });
+                }
 
-                alert('Watering reminder added to your Google Tasks!');
+                alert(`Added ${wateringsInMonth} watering reminders to your Google Tasks for the next month!`);
             } catch (err) {
-                console.error('Error creating task:', err);
-                alert('Error adding task to Google Tasks. Please try again.');
+                console.error('Error creating tasks:', err);
+                alert('Error adding tasks to Google Tasks. Please try again.');
             }
         }
 
@@ -252,7 +258,7 @@
                             <h1>${data.common_name}</h1>
                             <h2>${data.scientific_name[0]}</h2>
                             <div class="care-info">
-                                <p class="care-detail"><strong>Watering:</strong> ${data.watering || 'Information not available'}</p>
+                                <p class="care-detail"><strong>Watering:</strong> ${formatWateringFrequency(data.watering)}</p>
                                 <p class="care-detail"><strong>Sunlight:</strong> ${Array.isArray(data.sunlight) ? data.sunlight.join(', ') : (data.sunlight || 'Information not available')}</p>
                                 <p class="care-detail"><strong>Care Level:</strong> ${data.care_level || 'Information not available'}</p>
                                 <div class="description">
@@ -278,6 +284,17 @@
                     <p>We're sorry, but we couldn't load the plant information at this time. Please try again later.</p>
                 </div>
             `;
+        }
+
+        function formatWateringFrequency(watering) {
+            if (!watering) return 'Information not available';
+            
+            const wateringLower = watering.toLowerCase();
+            if (wateringLower.includes('frequent')) return 'Frequent (Every 2 days)';
+            if (wateringLower.includes('average')) return 'Average (Every 5 days)';
+            if (wateringLower.includes('minimum')) return 'Minimum (Every 10 days)';
+            if (wateringLower.includes('none')) return 'None';
+            return watering;
         }
 
         // Call displayPlantDetails when the page loads
