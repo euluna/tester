@@ -5,48 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Houseplant Assistant</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="config.js"></script>
 </head>
 <body>
     <nav>
         <div class="nav-left">
-            <div class="nav-item">
-                <a href="javascript:void(0)" onclick="window.history.back()">
-                    <img src="images/back.png" alt="Back" class="nav-icon">
-                    <span class="tooltip">Go back to previous page</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="index.html">
-                    <img src="images/homebutton.png" alt="Home" class="nav-icon">
-                    <span class="tooltip">Return to home page</span>
-                </a>
-            </div>
+            <a href="javascript:void(0)" onclick="window.history.back()">
+                <img src="images/back.png" alt="Back" class="nav-icon">
+            </a>
+            <a href="index.html">
+                <img src="images/homebutton.png" alt="Home" class="nav-icon">
+            </a>
         </div>
         <div class="nav-right">
-            <div class="nav-item">
-                <a href="plant-info.html?id=PLANT_ID" onclick="return checkAPILimit(event, this)">
-                    <span class="nav-text">Plant of the day</span>
-                    <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
-                    <span class="tooltip">View today's featured plant</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="contact.html">
-                    <span class="nav-text">Contact us</span>
-                    <img src="images/contact.png" alt="Contact" class="nav-icon-only">
-                    <span class="tooltip">Contact our team</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="about.html">
-                    <span class="nav-text">About us</span>
-                    <img src="images/about.png" alt="About" class="nav-icon-only">
-                    <span class="tooltip">Learn about our team</span>
-                </a>
-            </div>
+            <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
+                <span class="nav-text">Plant of the day</span>
+                <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
+            </a>
+            <a href="contact.html">
+                <span class="nav-text">Contact us</span>
+                <img src="images/contact.png" alt="Contact" class="nav-icon-only">
+            </a>
+            <a href="about.html">
+                <span class="nav-text">About us</span>
+                <img src="images/about.png" alt="About" class="nav-icon-only">
+            </a>
         </div>
     </nav>
 
@@ -73,75 +57,12 @@
             </div>
         </div>
     </main>
-    <script src="env.js"></script>
-    <script src="config.js" type="module"></script>
-    <script>
-    async function checkAPILimit(event, link) {
-        try {
-            const response = await fetch(`https://perenual.com/api/species/details/${config.PLANT_OF_DAY_ID}?key=${config.API_KEY}`);
-            const data = await response.json();
-            
-            if (data.message && (
-                data.message.includes("Please Upgrade Plan") || 
-                data.message.includes("Sorry") ||
-                data.message.includes("subscription")
-            )) {
-                event.preventDefault();
-                link.classList.add('premium-plant');
-                link.style.pointerEvents = 'none';
-                const tooltip = link.querySelector('.tooltip');
-                if (tooltip) {
-                    tooltip.textContent = 'API limit reached. Try again tomorrow.';
-                    tooltip.style.display = 'block';  // Force display
-                    tooltip.style.backgroundColor = '#fff3cd';
-                    tooltip.style.color = '#856404';
-                    tooltip.style.border = '1px solid #ffeeba';
-                }
-                
-                // Create and show the API limit message
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'api-limit-message';
-                messageDiv.innerHTML = '<p>Unfortunately, we have reached the limit of accessing the plants\' database. Please try again tomorrow.</p>';
-                document.querySelector('main').appendChild(messageDiv);
-                messageDiv.style.display = 'none';
-                
-                // Add click handler to show message
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    messageDiv.style.display = 'block';
-                    setTimeout(() => {
-                        messageDiv.style.display = 'none';
-                    }, 3000);
-                });
-                
-                return false;
-            }
-            
-            link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
-            return true;
-        } catch (error) {
-            console.error('Error checking API limit:', error);
-            event.preventDefault();
-            link.classList.add('premium-plant');
-            link.style.pointerEvents = 'none';
-            const tooltip = link.querySelector('.tooltip');
-            if (tooltip) {
-                tooltip.textContent = 'API limit reached. Try again tomorrow.';
-                tooltip.style.display = 'block';  // Force display
-                tooltip.style.backgroundColor = '#fff3cd';
-                tooltip.style.color = '#856404';
-                tooltip.style.border = '1px solid #ffeeba';
-            }
-            return false;
-        }
-    }
 
-    // Check API limit on page load
-    document.addEventListener('DOMContentLoaded', async () => {
-        const plantOfDayLink = document.querySelector('a[href*="plant-info.html?id=PLANT_ID"]');
-        if (plantOfDayLink) {
-            await checkAPILimit({ preventDefault: () => {} }, plantOfDayLink);
-        }
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.plant-of-day-link').forEach(link => {
+            link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
+        });
     });
     </script>
 </body>

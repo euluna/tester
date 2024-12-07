@@ -10,113 +10,49 @@
 <body>
     <nav>
         <div class="nav-left">
-            <div class="nav-item">
-                <a href="javascript:void(0)" onclick="window.history.back()">
-                    <img src="images/back.png" alt="Back" class="nav-icon">
-                    <span class="tooltip">Go back to previous page</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="index.html">
-                    <img src="images/homebutton.png" alt="Home" class="nav-icon">
-                    <span class="tooltip">Return to home page</span>
-                </a>
-            </div>
+            <a href="javascript:void(0)" onclick="window.history.back()">
+                <img src="images/back.png" alt="Back" class="nav-icon">
+            </a>
+            <a href="index.html">
+                <img src="images/homebutton.png" alt="Home" class="nav-icon">
+            </a>
         </div>
         <div class="nav-right">
-            <div class="nav-item">
-                <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
-                    <span class="nav-text">Plant of the day</span>
-                    <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
-                    <span class="tooltip">View today's featured plant</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="contact.html">
-                    <span class="nav-text">Contact us</span>
-                    <img src="images/contact.png" alt="Contact" class="nav-icon-only">
-                    <span class="tooltip">Contact our team</span>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="about.html">
-                    <span class="nav-text">About us</span>
-                    <img src="images/about.png" alt="About" class="nav-icon-only">
-                    <span class="tooltip">Learn about our team</span>
-                </a>
-            </div>
+            <a href="plant-info.html?id=PLANT_ID" onclick="this.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
+                <span class="nav-text">Plant of the day</span>
+                <img src="images/plant.png" alt="Plant of the day" class="nav-icon-only">
+            </a>
+            <a href="contact.html">
+                <span class="nav-text">Contact us</span>
+                <img src="images/contact.png" alt="Contact" class="nav-icon-only">
+            </a>
+            <a href="about.html">
+                <span class="nav-text">About us</span>
+                <img src="images/about.png" alt="About" class="nav-icon-only">
+            </a>
         </div>
     </nav>
 
     <form id="searchForm" class="search-container">
         <input type="text" placeholder="Search for a houseplant" id="searchInput">
-        <div class="nav-item">
-            <img src="images/search.png" alt="Search" class="search-icon">
-            <span class="tooltip">Click to search</span>
-        </div>
+        <img src="images/search.png" alt="Search" class="search-icon">
     </form>
 
-    <div class="results-count"></div>
-    <div class="search-results"></div>
-    <div id="apiLimitMessage" class="api-limit-message search-warning" style="display: none;">
-        <p><p>Unfortunately, we have reached the limit of accessing the plants' database. Please try again tomorrow.</p>
+    <div class="results-count">
+        <script>
+            document.write(`${results.total} results for "${searchQuery}"`);
+        </script>
     </div>
-    <script src="env.js"></script>
-    <script src="config.js" type="module"></script>
+    <div class="search-results"></div>
+
     <script>
         async function searchPlants(query) {
             try {
                 const response = await fetch(`https://perenual.com/api/species-list?key=${config.API_KEY}&q=${encodeURIComponent(query)}`);
-                const data = await response.json();
-                
-                console.log('API Response:', data);
-                
-                if (data.message && (
-                    data.message.includes("Please Upgrade Plan") || 
-                    data.message.includes("Sorry") ||
-                    data.message.includes("subscription")
-                )) {
-                    // Disable the plant of the day link in nav bar
-                    const plantOfDayLink = document.querySelector('a[href*="plant-info.html?id=PLANT_ID"]');
-                    if (plantOfDayLink) {
-                        plantOfDayLink.classList.add('premium-plant');
-                        plantOfDayLink.style.pointerEvents = 'none';
-                        // Update the tooltip text
-                        const tooltip = plantOfDayLink.querySelector('.tooltip');
-                        if (tooltip) {
-                            tooltip.textContent = 'API limit reached. Try again tomorrow.';
-                        }
-                    }
-
-                    const messageDiv = document.getElementById('apiLimitMessage');
-                    messageDiv.style.display = 'block';
-                    setTimeout(() => {
-                        messageDiv.style.display = 'none';
-                    }, 3000);
-                    return null;
-                }
-
                 if (!response.ok) throw new Error('API request failed');
-                return data;
+                return await response.json();
             } catch (error) {
                 console.error('Error:', error);
-                // Also disable plant of the day link for error case
-                const plantOfDayLink = document.querySelector('a[href*="plant-info.html?id=PLANT_ID"]');
-                if (plantOfDayLink) {
-                    plantOfDayLink.classList.add('premium-plant');
-                    plantOfDayLink.style.pointerEvents = 'none';
-                    // Update the tooltip text
-                    const tooltip = plantOfDayLink.querySelector('.tooltip');
-                    if (tooltip) {
-                        tooltip.textContent = 'API limit reached. Try again tomorrow.';
-                    }
-                }
-
-                const messageDiv = document.getElementById('apiLimitMessage');
-                messageDiv.style.display = 'block';
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 3000);
                 return null;
             }
         }
@@ -127,27 +63,19 @@
             });
         }
 
-        async function displayResults(results) {
+        function displayResults(results) {
+            const resultsCount = document.querySelector('.results-count');
+            resultsCount.textContent = `${results.data.length} results for "${document.getElementById('searchInput').value}"`;
+            
             const resultsContainer = document.querySelector('.search-results');
             resultsContainer.innerHTML = '';
             
-            for (const plant of results.data) {
+            results.data.forEach(plant => {
                 const properName = toProperCase(plant.common_name);
                 const imageSrc = plant.default_image?.thumbnail || plant.default_image?.regular_url || plant.default_image?.original_url || 'images/plantplaceholder.png';
                 
-                // Check if the plant details are actually available
-                let isPremium = false;
-                try {
-                    const detailResponse = await fetch(`https://perenual.com/api/species/details/${plant.id}?key=${config.API_KEY}`);
-                    const detailData = await detailResponse.json();
-                    isPremium = detailData.message === "Please Upgrade Plan - https://perenual.com/subscription-api-pricing. Sorry";
-                } catch (error) {
-                    console.error('Error checking plant details:', error);
-                    isPremium = true; // Assume premium if we can't check
-                }
-                
                 const div = document.createElement('div');
-                div.className = 'plant-result' + (isPremium ? ' premium-plant' : '');
+                div.className = 'plant-result';
                 div.innerHTML = `
                     <img src="${imageSrc}" 
                          alt="${properName}"
@@ -155,27 +83,13 @@
                     <div class="plant-info">
                         <h2>${properName}</h2>
                         <p>${plant.scientific_name}</p>
-                        ${isPremium ? '<span class="premium-badge">Premium Content</span>' : ''}
                     </div>
                 `;
-                
-                if (isPremium) {
-                    div.title = "This plant requires premium API access";
-                }
-                
                 div.onclick = () => {
-                    if (isPremium) {
-                        showPremiumNotice(properName);
-                    } else {
-                        window.location.href = `plant-info.html?id=${plant.id}`;
-                    }
+                    window.location.href = `plant-info.html?id=${plant.id}`;
                 };
                 resultsContainer.appendChild(div);
-            }
-        }
-
-        function showPremiumNotice(plantName) {
-            alert(`${plantName} details are only available with premium API access. Try searching for a different plant!`);
+            });
         }
 
         window.addEventListener('load', async () => {
@@ -184,11 +98,7 @@
             if (query) {
                 document.getElementById('searchInput').value = query;
                 const results = await searchPlants(query);
-                if (results) {
-                    document.querySelector('.results-count').textContent = 
-                        `${results.total} results for "${query}"`;
-                    displayResults(results);
-                }
+                displayResults(results);
             }
         });
 
@@ -207,66 +117,6 @@
                 window.location.href = `search-results.html?q=${encodeURIComponent(searchTerm)}`;
             }
         });
-
-        async function checkAPILimit(event, link) {
-            try {
-                const response = await fetch(`https://perenual.com/api/species/details/${config.PLANT_OF_DAY_ID}?key=${config.API_KEY}`);
-                const data = await response.json();
-                
-                if (data.message && (
-                    data.message.includes("Please Upgrade Plan") || 
-                    data.message.includes("Sorry") ||
-                    data.message.includes("subscription")
-                )) {
-                    event.preventDefault();
-                    link.classList.add('premium-plant');
-                    link.style.pointerEvents = 'none';
-                    const tooltip = link.querySelector('.tooltip');
-                    if (tooltip) {
-                        tooltip.textContent = 'API limit reached. Try again tomorrow.';
-                        tooltip.style.display = 'block';  // Force display
-                        tooltip.style.backgroundColor = '#fff3cd';
-                        tooltip.style.color = '#856404';
-                        tooltip.style.border = '1px solid #ffeeba';
-                    }
-                    
-                    // Create and show the API limit message
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'api-limit-message';
-                    messageDiv.innerHTML = '<p>Unfortunately, we have reached the limit of accessing the plants\' database. Please try again tomorrow.</p>';
-                    document.querySelector('main').appendChild(messageDiv);
-                    messageDiv.style.display = 'none';
-                    
-                    // Add click handler to show message
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        messageDiv.style.display = 'block';
-                        setTimeout(() => {
-                            messageDiv.style.display = 'none';
-                        }, 3000);
-                    });
-                    
-                    return false;
-                }
-                
-                link.href = `plant-info.html?id=${config.PLANT_OF_DAY_ID}`;
-                return true;
-            } catch (error) {
-                console.error('Error checking API limit:', error);
-                event.preventDefault();
-                link.classList.add('premium-plant');
-                link.style.pointerEvents = 'none';
-                const tooltip = link.querySelector('.tooltip');
-                if (tooltip) {
-                    tooltip.textContent = 'API limit reached. Try again tomorrow.';
-                    tooltip.style.display = 'block';  // Force display
-                    tooltip.style.backgroundColor = '#fff3cd';
-                    tooltip.style.color = '#856404';
-                    tooltip.style.border = '1px solid #ffeeba';
-                }
-                return false;
-            }
-        }
     </script>
 </body>
 </html> 
