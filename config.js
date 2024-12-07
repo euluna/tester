@@ -32,8 +32,8 @@ const config = {
     })(),
     
     // Google API credentials
-    GOOGLE_CLIENT_ID: '',
-    GOOGLE_API_KEY: '',
+    GOOGLE_CLIENT_ID: '1092792530032-1rb8apfgl9ndhvuteuq4sr3kcfph3smb.apps.googleusercontent.com',
+    GOOGLE_API_KEY: 'AIzaSyAQ_85hoZstHGA36ydO-R7WR3RjmCPa-WY',
     GOOGLE_DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest',
     GOOGLE_SCOPES: 'https://www.googleapis.com/auth/tasks'
 };
