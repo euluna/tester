@@ -1,3 +1,15 @@
+const winston = require('winston');
+
+// Create logger configuration
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
+
 const config = {
     API_KEY: 'sk-YiLu67441e9ba21997759',
     PLANT_OF_DAY_ID: (() => {
@@ -25,3 +37,5 @@ const config = {
     GOOGLE_DISCOVERY_DOC: 'https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest',
     GOOGLE_SCOPES: 'https://www.googleapis.com/auth/tasks'
 };
+
+module.exports = config;
