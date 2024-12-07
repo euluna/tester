@@ -27,7 +27,11 @@ jobs:
       run: docker build -t my-app .
 
     - name: Run Tests in Docker
-      run: docker run my-app npm test
+      run: |
+        docker run \
+          -e NODE_ENV=test \
+          -e PERENUAL_API_KEY=${{ secrets.PERENUAL_API_KEY }} \
+          my-app npm test
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:

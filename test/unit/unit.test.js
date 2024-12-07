@@ -36,7 +36,7 @@ describe('Search Functionality Tests', () => {
 
 describe('Plant of the Day Tests', () => {
   test('PLANT_OF_DAY_ID is within FREE_PLANT_IDS array', () => {
-    const config = require('../config.js');
+    const config = require('../../config.js');
     const plantOfDay = config.PLANT_OF_DAY_ID;
     expect(Array.isArray(config.FREE_PLANT_IDS)).toBe(true);
     expect(config.FREE_PLANT_IDS.length).toBeGreaterThan(0);

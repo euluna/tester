@@ -1,13 +1,34 @@
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
+let server;
+let exitTimeout;
 
-beforeAll(async () => {
-  // Start local server
-  exec('npx http-server -p 8080');
-  // Wait for server to start
-  await new Promise(resolve => setTimeout(resolve, 2000));
+beforeAll(() => {
+  console.log('Test setup starting...');
 });
 
-afterAll(async () => {
-  // Cleanup server process
-  exec('pkill -f http-server');
-}); 
+afterAll(done => {
+  console.log('Test setup cleanup...');
+  if (server) {
+    server.kill();
+  }
+  
+  // Clear any existing timeout
+  if (exitTimeout) {
+    clearTimeout(exitTimeout);
+  }
+  
+  // Call done to signal completion
+  done();
+});
+
+// Shorter timeout to avoid long hangs
+jest.setTimeout(10000);
+
+// Add global error handlers
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled Promise Rejection:', error);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+});

@@ -7,8 +7,8 @@ WORKDIR /usr/src/app
 # Copy package files
 COPY package*.json ./
 
-# Install production dependencies only
-RUN npm ci --only=production
+# Install ALL dependencies (including dev dependencies for testing)
+RUN npm ci
 
 # Copy all source files
 COPY . .
