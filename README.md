@@ -1,4 +1,7 @@
-The project is published at https://euluna.github.io/tester/<del>, but the "Add to Task" functionality will not work because we did not get verification to use the Google Tasks API on a published project. It is still in the testing phase, so we can only approve specific accounts for access.
+# Project is published at https://euluna.github.io/tester/
+
+<del>
+The project is published at https://euluna.github.io/tester/, but the "Add to Task" functionality will not work because we did not get verification to use the Google Tasks API on a published project. It is still in the testing phase, so we can only approve specific accounts for access.
 
 <del>
 To test the full functionality:
