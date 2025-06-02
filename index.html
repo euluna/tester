@@ -35,17 +35,16 @@
     </nav>
 
     <main class="centered-content">
-        <h1>Houseplant Assistant</h1>
+        <h1 class="home_wave_text">Houseplant Assistant <span class="wave">🌱</span></h1>
         
         <form id="searchForm" class="search-container">
             <input type="text" placeholder="Search for a houseplant" id="searchInput">
             <img src="images/search.png" alt="Search" class="search-icon">
         </form>
-
         <div class="plant-of-day-box" onclick="window.location.href=`plant-info.html?id=${config.PLANT_OF_DAY_ID}`">
-            <p>Learn about the plant of the day!</p>
-            <img src="images/plantplaceholder.png" alt="Plant of the day">
+            <p><img src="images/plantplaceholder.png" alt="Plant of the day" > Learn about the plant of the day! </p> 
         </div>
+
     </main>
 
     <script>
